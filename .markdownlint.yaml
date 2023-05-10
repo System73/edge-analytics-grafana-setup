@@ -1,0 +1,47 @@
+# markdownlint-cli configuration file (YAML)
+# markdownlint rules: https://github.com/DavidAnson/markdownlint/blob/main/doc/Rules.md
+
+# Default state for all rules
+default: true
+
+
+# MD012/no-multiple-blanks - Multiple consecutive blank lines
+MD012:
+  # Consecutive blank lines - to support H2 two-line spacing
+  maximum: 2
+
+# MD013/line-length - Line length
+MD013:
+  # Number of characters per line
+  line_length: 100
+  # Include code blocks
+  code_blocks: false
+  # Include tables
+  tables: false
+
+# MD024/no-duplicate-heading/no-duplicate-header - Multiple headings with the same content
+MD024:
+  # Only check sibling headings
+  allow_different_nesting: true
+  # Only check sibling headings
+  siblings_only: false
+
+# MD026/no-trailing-punctuation - Trailing punctuation in heading
+MD026:
+  # Forbidden punctuation characters
+  punctuation: ".,;:。，；："
+
+# MD029/ol-prefix - Ordered list item prefix
+MD029:
+  # List style
+  style: "ordered"
+
+# MD033/no-inline-html - Inline HTML
+MD033:
+  # Allowed elements
+  allowed_elements:
+    - center
+    - br
+
+# MD046/code-block-style - Code block style
+MD046: false
