@@ -1,0 +1,7 @@
+# IDEs
+.idea
+workspace.code-workspace
+.vscode
+
+# Local
+.DS_Store
