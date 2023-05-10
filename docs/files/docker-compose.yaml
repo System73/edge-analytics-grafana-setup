@@ -1,0 +1,13 @@
+services:
+
+  grafana:
+    image: grafana/grafana-oss:9.4.7
+    environment:
+      - TERM=xterm
+    ports:
+      - "3000:3000"
+    networks:
+      - grafana-net
+
+networks:
+  grafana-net:
