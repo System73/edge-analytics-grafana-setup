@@ -1,4 +1,4 @@
-# Local Grafana Deployment
+# Self-hosted Grafana integration with Edge Analytics
 
 ## Instructions
 

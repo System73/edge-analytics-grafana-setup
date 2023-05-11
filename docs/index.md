@@ -1,6 +1,3 @@
----
-layout: default
----
 <!-- markdownlint-disable -->
 <style>
 /* The below `img` style sets the default CSS styling for all images hereafter in this markdown
@@ -17,7 +14,7 @@ img
 }
 </style>
 <!-- markdownlint-enable -->
-# Local Grafana Deployment
+# Self-hosted Grafana integration with Edge Analytics
 
 ## Requirements
 
