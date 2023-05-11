@@ -10,6 +10,8 @@ Please visit our
 You are welcome to contribute as long as you follow some rules to ensure consistency, sustainability
 and efficiency:
 
+* [x] Install [pre-commit][pre-commit-install] if you don't have it.
+* [x] Run `pre-commit install` to install the pre-commit hooks.
 * [x] Create a branch with a meaningful name.
 * [x] Make *commits* following the [Conventional Commits][conv-commits] style.
 * [x] Core contributors have decided to **follow a rebase strategy** to keep branches up-to-date
@@ -20,3 +22,4 @@ and efficiency:
 
 [conv-commits]: https://www.conventionalcommits.org/en/v1.0.0/
 [how-to-rebase]: https://www.atlassian.com/git/tutorials/merging-vs-rebasing
+[pre-commit-install]: https://pre-commit.com/#installation
