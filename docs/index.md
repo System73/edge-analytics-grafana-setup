@@ -30,7 +30,7 @@ instructions for the Docker-based deployment as it is more portable and cross-pl
 
 ### Getting Grafana up and running (Linux only)
 
-1. First download the docker-compose file from [here](/files/docker-compose.yaml).
+1. First download the docker-compose file from [here](./files/docker-compose.yaml).
 
 2. On a terminal opened in the same directory where you download the docker-compose.yaml file you
 can simply type: `docker compose up -d grafana`
@@ -50,43 +50,47 @@ To install the plugin from the UI you just have to (other installation methods d
 [here][grafana-json-datasource-install]):
 
 1. Navigate to the *Configuration > Plugins* section.
-![Configuration > Plugins](/images/plugins.png)
+![Configuration > Plugins](./images/plugins.png)
 2. Search for the term “JSON API” so you should get the plugin developed by Marcus Olsson.
-![JSON API Plugin](/images/json-api-plugin.png)
+![JSON API Plugin](./images/json-api-plugin.png)
 3. Click on the *Install* button.
-![JSON API install](/images/json-api-install.png)
+![JSON API install](./images/json-api-install.png)
 4. Click on the *Create a JSON API* data source button.
-![Create datasource](/images/create-datasource.png)
+![Create datasource](./images/create-datasource.png)
 5. Configure the data source with the following values:
    1. Name: Dremel API
    2. URL: [https://api.system73.com/analytics](https://api.system73.com/analytics)
    3. Add a header on *Custom HTTP Headers* with the following:
       1. Header: `Authorization`
-      2. Value: `Bearer <edge_analytics_api_key>`
-![Datasource setup](/images/datasource-setup.png)
+      2. Value: `Bearer <edge_analytics_api_key>` (Available on [System73 Portal][s73-portal])
+![Datasource setup](./images/datasource-setup.png)
 6. Click on the *Save & test* button (ignore the warning message) and click on the Back button.
 
 ### Importing Edge Analytics dashboards
 
-You can import the Edge Analytics dashboard that we have made available [here](/files/ea-basic-dashboard.json).
+You can import the Edge Analytics dashboards that we have made available:
 
-To import it:
+* [Basic dashboard](./files/ea-basic-dashboard.json)
+* [Advanced dashboard](./files/ea-advanced-dashboard.json)
+
+To import a dashboard:
 
 1. Click on the sidebar’s *Dashboards > Import*
-![Dashboards > Import](/images/dashboard-import.png)
+![Dashboards > Import](./images/dashboard-import.png)
 2. You can either upload the dashboard file or simply copy & paste the file context. Since we are
 using a container without specific host-mounted volumes it is better to simply copy its content.
-![Import via JSON](/images/dashboard-load.png)
+![Import via JSON](./images/dashboard-load.png)
 3. Click on the *Load button*
 4. You can choose the dashboard uid, tittle, folder as you want but make sure to select the
 *Dremel API* as the dashboard datasource in the drop-down menu.
-![Dremel API datasource](/images/dashboard-datasource.png)
+![Dremel API datasource](./images/dashboard-datasource.png)
 
 5. Click on the *Import* button
 6. After that you just need to select the correct region and the Edge Intelligence Id that you have
 been assigned.
-![Edge Analytics customer id](/images/analytics-id.png)
+![Edge Analytics customer id](./images/analytics-id.png)
 
 [grafana-install-docs]: https://grafana.com/docs/grafana/latest/?pg=oss-graf&plcmt=quick-links#installing-grafana
 [grafana-json-datasource]: https://grafana.github.io/grafana-json-datasource/
 [grafana-json-datasource-install]: https://grafana.github.io/grafana-json-datasource/installation
+[s73-portal]: https://manage.system73.com

@@ -713,7 +713,7 @@
               "urlPath": "/v1/query/sql"
             },
             {
-              "body": "{\n  \"query\" : \"SELECT ChannelId AS \\\"Channel Id\\\", MaskedStreamUri AS \\\"Masked Stream URI\\\", RepresentationId As \\\"Representation\\\", MAX(\\\"ApproxJoinTime\\\") AS \\\"Join Time\\\" FROM (SELECT ChannelId, MaskedStreamUri, RepresentationId, SessionId, APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\"ApproxJoinTime\\\" FROM (SELECT ChannelId, MaskedStreamUri, RepresentationId, SessionId, MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3, 4) GROUP BY 1, 2, 3, 4) GROUP BY 1, 2, 3\",\n  \"context\":  {\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
+              "body": "{\n  \"query\" : \"SELECT ChannelId AS \\\"Channel Id\\\", MaskedStreamUri AS \\\"Masked Stream URI\\\", RepresentationId As \\\"Representation\\\", MAX(\\\"ApproxJoinTime\\\") AS \\\"Join Time\\\" FROM (SELECT ChannelId, MaskedStreamUri, RepresentationId, SessionId, APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\"ApproxJoinTime\\\" FROM (SELECT ChannelId, MaskedStreamUri, RepresentationId, SessionId, MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3, 4) GROUP BY 1, 2, 3, 4) GROUP BY 1, 2, 3 \",\n  \"context\":  {\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
               "cacheDurationSeconds": 0,
               "datasource": {
                 "type": "marcusolsson-json-datasource",
@@ -848,11 +848,11 @@
           },
           "gridPos": {
             "h": 1,
-            "w": 23,
+            "w": 24,
             "x": 0,
             "y": 14
           },
-          "id": 33,
+          "id": 44,
           "options": {
             "code": {
               "language": "plaintext",
@@ -1122,7 +1122,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1 ELSE VideoResolutionHeight END) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1 ELSE VideoResolutionWidth END) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND (((ViewportHeight - VideoResolutionHeight)/(CASE WHEN VideoResolutionHeight = 0 THEN 1 ELSE VideoResolutionHeight END) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth)/(CASE WHEN VideoResolutionWidth = 0 THEN 1 ELSE VideoResolutionWidth END) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1430,6 +1430,366 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_DREMEL_API}"
       },
+      "description": "The total number of hours the content is being played over time, per granularity time window.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "h"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 16
+      },
+      "id": 31,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolution\\\", (SUM(RollupCount) / 3600.0) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].VideoResolution",
+              "language": "jsonpath",
+              "name": "vid_res",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Viewed Hours",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*\"(\\d+p)\".*$",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "The average playtime that the content has been consumed by the audience per session over time.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "m"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 16
+      },
+      "id": 32,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(MaxPlayingTime) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(PlayingTime / (60 * 1000)) AS \\\"MaxPlayingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Minutes per Play",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "Percentage of BufferingTime during PlayingTime for Devices that have been less than 10 min in a buffering state.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "log": 2,
+              "type": "log"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 26
+      },
+      "id": 33,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": false
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(BufferingRatio) AS \\\"AbsAvgBufferingRatio\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN (MAX(PlayingTime) + MAX(BufferingTime)) = 0 THEN 0 ELSE MAX(BufferingTime) / (MAX(PlayingTime) + MAX(BufferingTime) * 1.0) END AS \\\"BufferingRatio\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE BufferingTime <= 600000 AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].AbsAvgBufferingRatio",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Buffering % (< 10 min in Buffering)",
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
       "description": "Percentage of total playing viewers at an optimal viewport resolution.",
       "fieldConfig": {
         "defaults": {
@@ -1485,9 +1845,9 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 16
+        "y": 26
       },
-      "id": 36,
+      "id": 48,
       "options": {
         "legend": {
           "calcs": [
@@ -1566,11 +1926,11 @@
       },
       "gridPos": {
         "h": 1,
-        "w": 23,
+        "w": 24,
         "x": 0,
-        "y": 26
+        "y": 36
       },
-      "id": 34,
+      "id": 45,
       "options": {
         "code": {
           "language": "plaintext",
@@ -1594,7 +1954,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 27
+        "y": 37
       },
       "id": 20,
       "panels": [],
@@ -1675,7 +2035,7 @@
         "h": 10,
         "w": 8,
         "x": 0,
-        "y": 28
+        "y": 38
       },
       "id": 23,
       "options": {
@@ -1692,7 +2052,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", SUM(CdnDownlinkThroughput) * 125 AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n    }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", SUM(CdnDownlinkThroughput) * 125 AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1787,7 +2147,7 @@
         "h": 10,
         "w": 8,
         "x": 8,
-        "y": 28
+        "y": 38
       },
       "id": 26,
       "options": {
@@ -1870,12 +2230,12 @@
         "h": 10,
         "w": 8,
         "x": 16,
-        "y": 28
+        "y": 38
       },
       "heatmap": {},
       "hideZeroBuckets": true,
       "highlightCards": true,
-      "id": 27,
+      "id": 34,
       "legend": {
         "show": true
       },
@@ -1934,7 +2294,6 @@
             "type": "marcusolsson-json-datasource",
             "uid": "${DS_DREMEL_API}"
           },
-          "experimentalGroupByField": "BrowserName",
           "fields": [
             {
               "jsonPath": "$.[*].timestamp",
@@ -1966,6 +2325,7 @@
         "show": true,
         "showHistogram": false
       },
+      "transformations": [],
       "transparent": true,
       "type": "heatmap",
       "xAxis": {
@@ -1983,13 +2343,586 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_DREMEL_API}"
       },
+      "description": "Total audience distribution by Browser for web platforms.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
       "gridPos": {
-        "h": 1,
-        "w": 23,
+        "h": 10,
+        "w": 8,
         "x": 0,
-        "y": 38
+        "y": 48
+      },
+      "id": 27,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", BrowserName, COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].BrowserName",
+              "language": "jsonpath",
+              "name": "browser",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Browsers",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*browser=\"(\\w+)\".*$",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*browser=\"()\".*$",
+            "renamePattern": "unrecognised"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "Total audience distribution by Operating Systems.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 48
       },
       "id": 35,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", OsName, COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].OsName",
+              "language": "jsonpath",
+              "name": "os",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Operating Systems",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*os=\"(\\w+)\".*$",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*os=\"()\".*$",
+            "renamePattern": "unrecognised"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "Total audience distribution by native apps or web media players.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": -1,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 48
+      },
+      "id": 36,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", PlayerName AS \\\"PlayerAppName\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2 UNION ALL SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", AppName AS \\\"PlayerAppName\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].PlayerAppName",
+              "language": "jsonpath",
+              "name": "player",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Players & Apps",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*player=\"(.+)\".*$",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*player=\"()\".*$",
+            "renamePattern": "unrecognised"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "Total audience distribution by their connection type.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "min": 0,
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 58
+      },
+      "id": 37,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", ConnectionType, COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].ConnectionType",
+              "language": "jsonpath",
+              "name": "cnx_type",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Connection Types",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*cnx_type=\"(\\w+)\".*$",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 68
+      },
+      "id": 46,
       "options": {
         "code": {
           "language": "plaintext",
@@ -2013,7 +2946,569 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 69
+      },
+      "id": 40,
+      "panels": [],
+      "targets": [
+        {
+          "datasource": {
+            "type": "grafadruid-druid-datasource",
+            "uid": "qmREw1d7k"
+          },
+          "refId": "A"
+        }
+      ],
+      "title": "ASN TRAFFIC",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "Total audience distribution by their ASN (showing separately 'Top 5' + Others).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 70
+      },
+      "id": 38,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(AsName, ' / ', Asn) AS \\\"Name\\\", COUNT(DISTINCT (SessionId)) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' AND AsName IN (SELECT AsName FROM (SELECT AsName, COUNT(DISTINCT SessionId) FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1 ORDER BY 2 DESC LIMIT 5)) GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].Name",
+              "language": "jsonpath",
+              "name": "asn_name",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "Top5",
+          "urlPath": "/v1/query/sql"
+        },
+        {
+          "body": "{\n  \"query\" : \"SELECT top.\\\"timestamp\\\", top.\\\"Name\\\", total.\\\"Total\\\" - top.\\\"Top\\\" AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", 'Others' AS \\\"Name\\\", COUNT(DISTINCT SessionId) AS \\\"Top\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' AND AsName IN (SELECT AsName FROM (SELECT AsName, COUNT(DISTINCT SessionId) FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1 ORDER BY 2 DESC LIMIT 5)) GROUP BY 1, 2) AS \\\"top\\\" INNER JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", COUNT(DISTINCT SessionId) AS \\\"Total\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1) AS \\\"total\\\" ON total.\\\"timestamp\\\" = top.\\\"timestamp\\\"\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].Name",
+              "language": "jsonpath",
+              "name": "asn_name",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "Others",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Audience by ASN",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*asn_name=\"(.+)\",.*$",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "Total amount of CDN traffic incoming from each ASN (showing separately 'Top 5' + Others).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 70
+      },
+      "id": 41,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(AsName, ' / ', Asn) AS \\\"Name\\\", SUM(TotalDownlinkThroughput) * 125 AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' AND AsName IN (SELECT AsName FROM (SELECT AsName, COUNT(DISTINCT SessionId) FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1 ORDER BY 2 DESC LIMIT 5)) GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].Name",
+              "language": "jsonpath",
+              "name": "asn_name",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "Top5",
+          "urlPath": "/v1/query/sql"
+        },
+        {
+          "body": "{\n  \"query\" : \"SELECT top.\\\"timestamp\\\", top.\\\"Name\\\", (total.\\\"Total\\\" - top.\\\"Top\\\") * 125 AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", 'Others' AS \\\"Name\\\", SUM(TotalDownlinkThroughput) AS \\\"Top\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' AND AsName IN (SELECT AsName FROM (SELECT AsName, COUNT(DISTINCT SessionId) FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1 ORDER BY 2 DESC LIMIT 5)) GROUP BY 1, 2) AS \\\"top\\\" INNER JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", SUM(TotalDownlinkThroughput) AS \\\"Total\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1) AS \\\"total\\\" ON total.\\\"timestamp\\\" = top.\\\"timestamp\\\"\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].Name",
+              "language": "jsonpath",
+              "name": "asn_name",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "Others",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Traffic by ASN: Volume",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*asn_name=\"(.+)\",.*$",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "description": "Total traffic volume in percentages from each ASN (showing separately 'Top 5' + Others).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "noValue": "0%",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 70
+      },
+      "id": 42,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT top.\\\"timestamp\\\", top.\\\"Name\\\", top.\\\"Top\\\" / total.\\\"Total\\\" AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(AsName, ' / ', Asn) AS \\\"Name\\\", CAST(COUNT(DISTINCT SessionId) AS FLOAT) AS \\\"Top\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' AND AsName IN (SELECT AsName FROM (SELECT AsName, COUNT(DISTINCT SessionId) FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1 ORDER BY 2 DESC LIMIT 5)) GROUP BY 1, 2) AS \\\"top\\\" INNER JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CAST(COUNT(DISTINCT SessionId) AS FLOAT) AS \\\"Total\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1) AS \\\"total\\\" ON total.\\\"timestamp\\\" = top.\\\"timestamp\\\"\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": false\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].Name",
+              "language": "jsonpath",
+              "name": "asn_name",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "params": [],
+          "queryParams": "",
+          "refId": "Top5",
+          "urlPath": "/v1/query/sql"
+        },
+        {
+          "body": "{\n  \"query\" : \"SELECT top.\\\"timestamp\\\", top.\\\"Name\\\", ((total.\\\"Total\\\" - top.\\\"Top\\\") / total.\\\"Total\\\") AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", 'Others' AS \\\"Name\\\", CAST(COUNT(DISTINCT SessionId) AS FLOAT) AS \\\"Top\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' AND AsName IN (SELECT AsName FROM (SELECT AsName, COUNT(DISTINCT SessionId) FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1 ORDER BY 2 DESC LIMIT 5)) GROUP BY 1, 2) AS \\\"top\\\" INNER JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CAST(COUNT(DISTINCT SessionId) AS FLOAT) AS \\\"Total\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1) AS \\\"total\\\" ON total.\\\"timestamp\\\" = top.\\\"timestamp\\\"\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": false\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_DREMEL_API}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].Name",
+              "language": "jsonpath",
+              "name": "asn_name",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "params": [],
+          "queryParams": "",
+          "refId": "Others",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Traffic by ASN: Percentage",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "many"
+          }
+        },
+        {
+          "id": "seriesToColumns",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*asn_name=\"(.+)\",.*$",
+            "renamePattern": "$1"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_DREMEL_API}"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 80
+      },
+      "id": 47,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "",
+        "mode": "markdown"
+      },
+      "pluginVersion": "9.4.7",
+      "transparent": true,
+      "type": "text"
+    },
+    {
+      "collapsed": false,
+      "datasource": {
+        "type": "grafadruid-druid-datasource",
+        "uid": "qmREw1d7k"
+      },
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 81
       },
       "id": 22,
       "panels": [],
@@ -2067,7 +3562,7 @@
         "h": 18,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 82
       },
       "id": 29,
       "options": {
@@ -2135,7 +3630,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, AsName, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "columns": [],
           "datasource": {
@@ -2152,6 +3647,12 @@
               "language": "jsonpath",
               "name": "",
               "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].AsName",
+              "language": "jsonpath",
+              "name": "",
+              "type": "string"
             },
             {
               "jsonPath": "$.[*].Count",
@@ -2219,7 +3720,7 @@
         "h": 18,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 82
       },
       "id": 30,
       "options": {
@@ -2327,9 +3828,9 @@
     "list": [
       {
         "current": {
-          "selected": false,
-          "text": "emea",
-          "value": "emea"
+          "selected": true,
+          "text": "americas",
+          "value": "americas"
         },
         "description": "Customer's region",
         "hide": 0,
@@ -2338,12 +3839,12 @@
         "name": "region",
         "options": [
           {
-            "selected": false,
+            "selected": true,
             "text": "americas",
             "value": "americas"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "emea",
             "value": "emea"
           },
@@ -2354,6 +3855,7 @@
           }
         ],
         "query": "americas,emea,apac",
+        "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -2402,7 +3904,6 @@
               "type": "string"
             }
           ],
-          "headers": [],
           "method": "POST",
           "queryParams": "",
           "urlPath": "/v1/query/sql"
@@ -2437,7 +3938,6 @@
               "type": "string"
             }
           ],
-          "headers": [],
           "method": "POST",
           "queryParams": "",
           "urlPath": "/v1/query/sql"
@@ -2472,7 +3972,6 @@
               "type": "string"
             }
           ],
-          "headers": [],
           "method": "POST",
           "queryParams": "",
           "urlPath": "/v1/query/sql"
@@ -2635,8 +4134,8 @@
     ]
   },
   "timezone": "",
-  "title": "Edge Intelligence - Basic",
-  "uid": "ei-basic",
+  "title": "Edge Intelligence - Advanced",
+  "uid": "ei-advanced",
   "version": 1,
   "weekStart": ""
 }
