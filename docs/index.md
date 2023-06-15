@@ -58,7 +58,7 @@ To install the plugin from the UI you just have to (other installation methods d
 4. Click on the *Create a JSON API* data source button.
 ![Create datasource](./images/create-datasource.png)
 5. Configure the data source with the following values:
-   1. Name: Dremel API
+   1. Name: System73 Analytics
    2. URL: [https://api.system73.com/analytics](https://api.system73.com/analytics)
    3. Add a header on *Custom HTTP Headers* with the following:
       1. Header: `Authorization`
@@ -82,13 +82,15 @@ using a container without specific host-mounted volumes it is better to simply c
 ![Import via JSON](./images/dashboard-load.png)
 3. Click on the *Load button*
 4. You can choose the dashboard uid, tittle, folder as you want but make sure to select the
-*Dremel API* as the dashboard datasource in the drop-down menu.
-![Dremel API datasource](./images/dashboard-datasource.png)
+*System73 Analytics* as the dashboard datasource in the drop-down menu.
+![System73 Analytics datasource](./images/dashboard-datasource.png)
 
 5. Click on the *Import* button
 6. After that you just need to select the correct region and the Edge Intelligence Id that you have
 been assigned.
 ![Edge Analytics customer id](./images/analytics-id.png)
+7. Success!
+![Edge Analytics dashboard](./images/analytics-dashboard.png)
 
 [grafana-install-docs]: https://grafana.com/docs/grafana/latest/?pg=oss-graf&plcmt=quick-links#installing-grafana
 [grafana-json-datasource]: https://grafana.github.io/grafana-json-datasource/
