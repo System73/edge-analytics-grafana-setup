@@ -1,8 +1,8 @@
 {
   "__inputs": [
     {
-      "name": "DS_DREMEL_API",
-      "label": "Dremel API",
+      "name": "DS_SYSTEM73_ANALYTICS",
+      "label": "System73 Analytics",
       "description": "",
       "type": "datasource",
       "pluginId": "marcusolsson-json-datasource",
@@ -93,7 +93,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The highest number of devices connected simultaneously for the selected time period.",
       "fieldConfig": {
@@ -148,7 +148,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -170,7 +170,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over CDN for the selected time period.",
       "fieldConfig": {
@@ -225,7 +225,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -247,7 +247,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over P2P for the selected time period.",
       "fieldConfig": {
@@ -302,7 +302,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -324,7 +324,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The Total Offload Percentage of the video distribution for the selected time period.",
       "fieldConfig": {
@@ -379,7 +379,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -401,7 +401,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The median of the amount of time that takes from loading the connection to the first video frame.",
       "fieldConfig": {
@@ -457,7 +457,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -479,7 +479,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The total of playtime for the selected time period.",
       "fieldConfig": {
@@ -534,7 +534,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -570,7 +570,7 @@
         {
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -667,7 +667,7 @@
               "cacheDurationSeconds": 0,
               "datasource": {
                 "type": "marcusolsson-json-datasource",
-                "uid": "${DS_DREMEL_API}"
+                "uid": "${DS_SYSTEM73_ANALYTICS}"
               },
               "fields": [
                 {
@@ -717,7 +717,7 @@
               "cacheDurationSeconds": 0,
               "datasource": {
                 "type": "marcusolsson-json-datasource",
-                "uid": "${DS_DREMEL_API}"
+                "uid": "${DS_SYSTEM73_ANALYTICS}"
               },
               "fields": [
                 {
@@ -844,7 +844,7 @@
         {
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "gridPos": {
             "h": 1,
@@ -908,7 +908,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total number of participating devices aggregated per time bucket (interval).",
       "fieldConfig": {
@@ -990,7 +990,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1044,7 +1044,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The total number of devices that are getting the best resolution they can represent.",
       "fieldConfig": {
@@ -1126,7 +1126,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1180,7 +1180,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The total number of devices that are getting lower resolution than they can represent.",
       "fieldConfig": {
@@ -1263,7 +1263,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1317,7 +1317,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The time it takes to present the first frame to the viewer after the service finishes loading.",
       "fieldConfig": {
@@ -1399,7 +1399,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1428,7 +1428,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Percentage of total playing viewers at an optimal viewport resolution.",
       "fieldConfig": {
@@ -1508,7 +1508,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1562,7 +1562,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "gridPos": {
         "h": 1,
@@ -1613,7 +1613,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over CDN (Content Delivery Network/s).",
       "fieldConfig": {
@@ -1696,7 +1696,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1725,7 +1725,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over P2P Connections (i.e. coming from Edge Intelligence).",
       "fieldConfig": {
@@ -1808,7 +1808,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1848,7 +1848,7 @@
       "dataFormat": "timeseries",
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total audience distribution by connection speed.",
       "fieldConfig": {
@@ -1932,7 +1932,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "experimentalGroupByField": "BrowserName",
           "fields": [
@@ -1981,7 +1981,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "gridPos": {
         "h": 1,
@@ -2032,7 +2032,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2140,7 +2140,7 @@
           "columns": [],
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2184,7 +2184,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": "${DS_DREMEL_API}"
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -2274,7 +2274,7 @@
           "columns": [],
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": "${DS_DREMEL_API}"
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2383,7 +2383,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": "${DS_DREMEL_API}"
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].ChannelId",
         "description": "",
@@ -2418,7 +2418,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": "${DS_DREMEL_API}"
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].MaskedStreamUri",
         "description": "",
@@ -2453,7 +2453,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": "${DS_DREMEL_API}"
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].Bitrate",
         "description": "",
@@ -2526,7 +2526,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": "${DS_DREMEL_API}"
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].label",
         "description": "",
@@ -2575,7 +2575,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": "${DS_DREMEL_API}"
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.layer",
         "description": "Dremel data layer (type of Druid's datasource) to interpolate within the datasource name",
