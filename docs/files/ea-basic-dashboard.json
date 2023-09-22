@@ -33,7 +33,7 @@
       "type": "datasource",
       "id": "marcusolsson-json-datasource",
       "name": "JSON API",
-      "version": "1.3.5"
+      "version": "1.3.6"
     },
     {
       "type": "panel",
@@ -144,7 +144,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT MAX(SumDeviceCount) AS \\\"MaxDeviceCount\\\" FROM (SELECT \\\"timestamp\\\", SUM(DeviceCount) AS \\\"SumDeviceCount\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", COUNT(DISTINCT SessionId) AS \\\"DeviceCount\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE VideoResolutionHeight > 0 AND Bitrate IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, VideoResolutionHeight) GROUP BY 1)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT MAX(SumDeviceCount) AS \\\"MaxDeviceCount\\\" FROM (SELECT \\\"timestamp\\\", SUM(DeviceCount) AS \\\"SumDeviceCount\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", COUNT(DISTINCT SessionId) AS \\\"DeviceCount\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE VideoResolutionHeight > 0 AND Bitrate IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, VideoResolutionHeight) GROUP BY 1)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -221,7 +221,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT SUM(CdnDownlinkThroughput) * 125 AS \\\"TotalCdnDownlinkThroughput\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT SUM(CdnDownlinkThroughput) * 125 AS \\\"TotalCdnDownlinkThroughput\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -298,7 +298,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT SUM(P2pDownlinkThroughput) * 125 AS \\\"TotalP2pDownlinkThroughput\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT SUM(P2pDownlinkThroughput) * 125 AS \\\"TotalP2pDownlinkThroughput\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -375,7 +375,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT (CAST(SUM(P2pDownlinkThroughput) AS FLOAT) / CASE WHEN SUM(TotalDownlinkThroughput) = 0 THEN 1 ELSE SUM(TotalDownlinkThroughput) END) AS \\\"P2pOffload\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT (CAST(SUM(P2pDownlinkThroughput) AS FLOAT) / CASE WHEN SUM(TotalDownlinkThroughput) = 0 THEN 1 ELSE SUM(TotalDownlinkThroughput) END) AS \\\"P2pOffload\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -453,7 +453,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\"MedianStartingTime\\\" FROM (SELECT MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\"MedianStartingTime\\\" FROM (SELECT MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -640,6 +640,23 @@
                     "value": "0"
                   }
                 ]
+              },
+              {
+                "matcher": {
+                  "id": "byName",
+                  "options": "Channel Id"
+                },
+                "properties": [
+                  {
+                    "id": "links",
+                    "value": [
+                      {
+                        "title": "",
+                        "url": "/d/ei-basic/edge-intelligence-basic?${region:queryparam}&${customer_id:queryparam}&${auth:queryparam}&orgId=1&${__url_time_range}&var-channel_id=${__data.fields[\"Channel Id\"]}&${stream_uri:queryparam}&${bitrate:queryparam}&${stream_state:queryparam}&${iso_period:queryparam}&${data_layer:queryparam}&${accuracy:queryparam}"
+                      }
+                    ]
+                  }
+                ]
               }
             ]
           },
@@ -663,7 +680,7 @@
           "pluginVersion": "9.4.7",
           "targets": [
             {
-              "body": "{\n  \"query\" : \"SELECT ChannelId AS \\\"Channel Id\\\", MaskedStreamUri AS \\\"Masked Stream URI\\\", RepresentationId As \\\"Representation\\\", COUNT(DISTINCT SessionId) AS \\\"Audience\\\", SUM(TotalDownlinkThroughput) \\\"Total Traffic\\\", (CAST(SUM(P2pDownlinkThroughput) AS FLOAT) / CASE WHEN SUM(TotalDownlinkThroughput) = 0 THEN 1 ELSE SUM(TotalDownlinkThroughput) END * 100) AS \\\"Offload\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3\",\n  \"context\":  {\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
+              "body": "{\n  \"query\" : \"SELECT ChannelId AS \\\"Channel Id\\\", MaskedStreamUri AS \\\"Masked Stream URI\\\", RepresentationId As \\\"Representation\\\", COUNT(DISTINCT SessionId) AS \\\"Audience\\\", SUM(TotalDownlinkThroughput) \\\"Total Traffic\\\", (CAST(SUM(P2pDownlinkThroughput) AS FLOAT) / CASE WHEN SUM(TotalDownlinkThroughput) = 0 THEN 1 ELSE SUM(TotalDownlinkThroughput) END * 100) AS \\\"Offload\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3\",\n  \"context\":  {\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
               "cacheDurationSeconds": 0,
               "datasource": {
                 "type": "marcusolsson-json-datasource",
@@ -910,7 +927,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "Total number of participating devices aggregated per time bucket (interval).",
+      "description": "Number of playback sessions within the selected time range, aggregated per time granularity interval.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -921,7 +938,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
+            "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
             "gradientMode": "opacity",
@@ -986,7 +1003,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT (SessionId)) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE VideoResolutionHeight > 0 AND Bitrate IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT (SessionId)) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE VideoResolutionHeight > 0 AND Bitrate IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1057,7 +1074,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
+            "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
             "gradientMode": "opacity",
@@ -1122,7 +1139,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1 ELSE VideoResolutionHeight END) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1 ELSE VideoResolutionWidth END) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND VideoResolutionHeight > 0 AND VideoResolutionWidth > 0 AND (((ViewportHeight - VideoResolutionHeight) / CAST(VideoResolutionHeight AS FLOAT) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth) / CAST(VideoResolutionWidth AS FLOAT) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1193,10 +1210,10 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
+            "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
-            "gradientMode": "none",
+            "gradientMode": "opacity",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -1259,7 +1276,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1 ELSE VideoResolutionHeight END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1 ELSE VideoResolutionWidth END) > 0.01)) AND (RepresentationId NOT IN (SELECT RepresentationId FROM \\\"sdk-${region}-${data_layer}\\\" WHERE RepresentationId NOT IN ('monobitrate', 'no-representation-id') AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS INT) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS INT) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1 ORDER BY 1 ASC LIMIT 1) OR RepresentationId NOT IN ('0')) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState in ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND VideoResolutionHeight < (SELECT MAX(VideoResolutionHeight) FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState in ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0') AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1330,7 +1347,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
+            "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
             "gradientMode": "none",
@@ -1430,7 +1447,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "Percentage of total playing viewers at an optimal viewport resolution.",
+      "description": "Percentage of total playing viewers at an optimal/suboptimal viewport resolution, where the \"optimal\" corresponds to the audience consuming the video representation with a resolution closest to the viewport reported by the video player.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1441,7 +1458,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
+            "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
             "gradientMode": "opacity",
@@ -1460,13 +1477,15 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "percent"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
           "mappings": [],
+          "max": 1,
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -1490,9 +1509,7 @@
       "id": 36,
       "options": {
         "legend": {
-          "calcs": [
-            "mean"
-          ],
+          "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
           "showLegend": true
@@ -1504,7 +1521,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT optimal.\\\"timestamp\\\", optimal.\\\"VideoResolutions\\\", optimal.\\\" \\\" / total.\\\"Total\\\" AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1 ELSE VideoResolutionHeight END) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1 ELSE VideoResolutionWidth END) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2) AS \\\"optimal\\\" INNER JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CAST(COUNT(DISTINCT SessionId) AS FLOAT) AS \\\"Total\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1) AS \\\"total\\\" ON total.\\\"timestamp\\\" = optimal.\\\"timestamp\\\"\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateTopN\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT optimal.\\\"timestamp\\\", optimal.\\\" \\\" / total.\\\"Total\\\" AS \\\" \\\", (total.\\\"Total\\\" - optimal.\\\" \\\") / total.\\\"Total\\\" AS \\\"Suboptimal\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CAST(COUNT(DISTINCT SessionId) AS FLOAT) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND VideoResolutionHeight > 0 AND VideoResolutionWidth > 0 AND (((ViewportHeight - VideoResolutionHeight) / CAST(VideoResolutionHeight AS FLOAT) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth) / CAST(VideoResolutionWidth AS FLOAT) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1) AS \\\"optimal\\\" INNER JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CAST(COUNT(DISTINCT SessionId) AS FLOAT) AS \\\"Total\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1) AS \\\"total\\\" ON total.\\\"timestamp\\\" = optimal.\\\"timestamp\\\"\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1516,13 +1533,13 @@
               "type": "time"
             },
             {
-              "jsonPath": "$.[*].VideoResolutions",
+              "jsonPath": "$.[*]. ",
               "language": "jsonpath",
-              "name": "vid_res",
-              "type": "string"
+              "name": "Optimal",
+              "type": "number"
             },
             {
-              "jsonPath": "$.[*]. ",
+              "jsonPath": "$.[*].Suboptimal",
               "language": "jsonpath",
               "name": "",
               "type": "number"
@@ -1537,25 +1554,7 @@
         }
       ],
       "title": "Optimal Viewport Percent",
-      "transformations": [
-        {
-          "id": "prepareTimeSeries",
-          "options": {
-            "format": "many"
-          }
-        },
-        {
-          "id": "seriesToColumns",
-          "options": {}
-        },
-        {
-          "id": "renameByRegex",
-          "options": {
-            "regex": "^.*\"(\\d+p)\".*$",
-            "renamePattern": "$1"
-          }
-        }
-      ],
+      "transformations": [],
       "transparent": true,
       "type": "timeseries"
     },
@@ -1626,7 +1625,7 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
+            "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
             "gradientMode": "none",
@@ -1731,14 +1730,14 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "continuous-BlYlRd"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 0,
+            "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
             "gradientMode": "none",
@@ -1928,7 +1927,7 @@
       "reverseYBuckets": false,
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN DownlinkSpeed <= 10000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 1000) WHEN DownlinkSpeed > 10000 AND DownlinkSpeed <= 100000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 10000) WHEN DownlinkSpeed > 100000 AND DownlinkSpeed <= 1000000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 100000) ELSE DownlinkSpeed - MOD(DownlinkSpeed, 1000000) END AS \\\"DownlinkSpeed\\\", COUNT(DISTINCT (SessionId)) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN DownlinkSpeed <= 10000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 1000) WHEN DownlinkSpeed > 10000 AND DownlinkSpeed <= 100000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 10000) WHEN DownlinkSpeed > 100000 AND DownlinkSpeed <= 1000000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 100000) ELSE DownlinkSpeed - MOD(DownlinkSpeed, 1000000) END AS \\\"DownlinkSpeed\\\", COUNT(DISTINCT (SessionId)) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1983,11 +1982,263 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
+      "description": "All the data transferred over the Content Delivery Network pathway(s)",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 1,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 0,
+        "y": 38
+      },
+      "id": 44,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN ContentSteeringPathway != '' THEN ContentSteeringPathway ELSE 'default' END AS \\\"cdn_label\\\", SUM(CdnDownlinkThroughput) * 125 AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].cdn_label",
+              "language": "jsonpath",
+              "name": "",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "CDN Traffic per CDN Label",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "multi"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
+      },
+      "description": "HTTP request from the CDN should be included in the header in order to be available on the chart",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 1,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "normal"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "decimals": 0,
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "decbytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 8,
+        "y": 38
+      },
+      "id": 46,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", NVL(ResponseCdn, 'default') AS \\\"cdn_header\\\", SUM(CdnDownlinkThroughput) * 125 AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].cdn_header",
+              "language": "jsonpath",
+              "name": "",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "CDN Traffic per X-CDN Header",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "multi"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
+      },
       "gridPos": {
         "h": 1,
         "w": 23,
         "x": 0,
-        "y": 38
+        "y": 48
       },
       "id": 35,
       "options": {
@@ -2013,7 +2264,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 39
+        "y": 49
       },
       "id": 22,
       "panels": [],
@@ -2067,7 +2318,7 @@
         "h": 18,
         "w": 12,
         "x": 0,
-        "y": 40
+        "y": 50
       },
       "id": 29,
       "options": {
@@ -2135,7 +2386,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "columns": [],
           "datasource": {
@@ -2219,7 +2470,7 @@
         "h": 18,
         "w": 12,
         "x": 12,
-        "y": 40
+        "y": 50
       },
       "id": 30,
       "options": {
@@ -2269,7 +2520,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "columns": [],
           "datasource": {
@@ -2386,7 +2637,7 @@
           "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].ChannelId",
-        "description": "",
+        "description": "Filter by the unique ID of your streaming channel",
         "hide": 0,
         "includeAll": true,
         "label": "Channel Id",
@@ -2421,7 +2672,7 @@
           "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].MaskedStreamUri",
-        "description": "",
+        "description": "Filter by the streaming URI (Universal Resource Identifier). NOTE: URI is the part of URL link generated for end-users.",
         "hide": 0,
         "includeAll": true,
         "label": "Stream URI",
@@ -2456,7 +2707,7 @@
           "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].Bitrate",
-        "description": "",
+        "description": "Filter by the player's bitrate in bps (bits per second)",
         "hide": 0,
         "includeAll": true,
         "label": "Bitrate",
@@ -2490,6 +2741,7 @@
           "text": "All",
           "value": "$__all"
         },
+        "description": "Filter by the stream type",
         "hide": 0,
         "includeAll": true,
         "label": "Type",
@@ -2529,7 +2781,7 @@
           "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].label",
-        "description": "",
+        "description": "Select the data granularity",
         "hide": 0,
         "includeAll": false,
         "label": "Time granularity",
