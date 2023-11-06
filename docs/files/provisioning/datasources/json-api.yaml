@@ -1,0 +1,19 @@
+apiVersion: 1
+
+datasources:
+  - name: System73 Analytics
+    value: DS_SYSTEM73_ANALYTICS
+    type: marcusolsson-json-datasource
+    access: proxy
+    orgId: 1
+    url: https://api.system73.com/analytics
+    user:
+    database: ""
+    basicAuth: false
+    isDefault: true
+    jsonData:
+      httpHeaderName1: "Authorization"
+    secureJsonData:
+      httpHeaderValue1: "Bearer ${ANALYTICS_API_TOKEN}"
+    version: 1
+    editable: true
