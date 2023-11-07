@@ -57,16 +57,16 @@ The plugin was already installed with the docker command.
 3. Click on the ***Create a JSON API*** data source button.
    ![Create datasource](./images/create-datasource.png)
 4. Configure the data source with the following values:
-   1. Name: `System73 Analytics`
-   2. URL: [https://api.system73.com/analytics](https://api.system73.com/analytics)
-   3. Add a header on ***Custom HTTP Headers*** with the following:
-      1. Header:
+   * Name: `System73 Analytics`
+   * URL: [https://api.system73.com/analytics](https://api.system73.com/analytics)
+   * Add a header on ***Custom HTTP Headers*** with the following:
+      * Header:
 
          ```text
          Authorization
          ```
 
-      2. Value: (Available on [System73 Portal][s73-portal])
+      * Value: (Available on [System73 Portal][s73-portal])
 
          ```text
          Bearer <edge_analytics_api_key>
