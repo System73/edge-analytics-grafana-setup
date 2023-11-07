@@ -33,10 +33,10 @@ what happens behind the scenes, you can refer to the manual installation
 ### Getting Grafana up and running (Linux only)
 
 1. First download the necessary files:
-   1. The docker-compose file from [here](./files/docker-compose.yaml).
-   2. The [provisioning](./files/provisioning) folder.
+   * The docker-compose file from [here](./files/docker-compose.yaml).
+   * The [provisioning][provisioning] folder.
 2. Create an `.env` or rename the provided `.env.example` file.
-   1. The `.env` file should contain your Analytics API token
+   * The `.env` file should contain your Analytics API token
    (Available on [System73 Portal][s73-portal]):
 
       ```text
@@ -67,4 +67,5 @@ been assigned.
    ![Edge Analytics dashboard](./images/analytics-dashboard.png)
 
 [ea-credentials]: https://docs.system73.com/services/edge-intelligence/ei-credentials/
+[provisioning]: https://github.com/System73/edge-analytics-grafana-setup/tree/main/docs/files/provisioning
 [s73-portal]: https://manage.system73.com
