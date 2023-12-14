@@ -741,7 +741,7 @@
               "urlPath": "/v1/query/sql"
             },
             {
-              "body": "{\n  \"query\" : \"SELECT ChannelId AS \\\"Channel Id\\\", MaskedStreamUri AS \\\"Masked Stream URI\\\", RepresentationId As \\\"Representation\\\", MAX(\\\"ApproxJoinTime\\\") AS \\\"Join Time\\\" FROM (SELECT ChannelId, MaskedStreamUri, RepresentationId, SessionId, APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\"ApproxJoinTime\\\" FROM (SELECT ChannelId, MaskedStreamUri, RepresentationId, SessionId, MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3, 4) GROUP BY 1, 2, 3, 4) GROUP BY 1, 2, 3\",\n  \"context\":  {\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
+              "body": "{\n  \"query\" : \"SELECT ChannelId AS \\\"Channel Id\\\", MaskedStreamUri AS \\\"Masked Stream URI\\\", RepresentationId As \\\"Representation\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\"Join Time\\\" FROM (SELECT ChannelId, MaskedStreamUri, RepresentationId, MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3, \\\"SessionId\\\") GROUP BY 1, 2, 3\",\n  \"context\":  {\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
               "cacheDurationSeconds": 0,
               "datasource": {
                 "type": "marcusolsson-json-datasource",
@@ -803,10 +803,8 @@
                     "operation": "groupby"
                   },
                   "Join Time": {
-                    "aggregations": [
-                      "max"
-                    ],
-                    "operation": "aggregate"
+                    "aggregations": [],
+                    "operation": "groupby"
                   },
                   "Masked Stream URI": {
                     "aggregations": [],
