@@ -33,7 +33,7 @@ what happens behind the scenes, you can refer to the manual installation
 ### Getting Grafana up and running (Linux only)
 
 1. First download the necessary files:
-   * The docker-compose file from [here](./files/docker-compose.yaml).
+   * The docker-compose file from [here](../docker-compose.yaml).
    * The [provisioning][provisioning] folder.
 2. Create an `.env` or rename the provided `.env.example` file.
    * The `.env` file should contain your Analytics API token

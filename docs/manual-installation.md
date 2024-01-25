@@ -79,8 +79,8 @@ The plugin was already installed with the docker command.
 
 You can import the Edge Analytics dashboards that we have made available:
 
-* [Basic dashboard](./files/provisioning/dashboards/ea-basic-dashboard.json)
-* [Advanced dashboard](./files/provisioning/dashboards/ea-advanced-dashboard.json)
+* [Basic dashboard](../provisioning/dashboards/ea-basic-dashboard.json)
+* [Advanced dashboard](../provisioning/dashboards/ea-advanced-dashboard.json)
 
 > **Note**:
 >
