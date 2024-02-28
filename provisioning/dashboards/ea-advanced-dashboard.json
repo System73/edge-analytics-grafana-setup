@@ -33,7 +33,7 @@
       "type": "datasource",
       "id": "marcusolsson-json-datasource",
       "name": "JSON API",
-      "version": "1.3.9"
+      "version": "1.3.12"
     },
     {
       "type": "panel",
@@ -45,13 +45,13 @@
       "type": "panel",
       "id": "system73-3dglobe-panel",
       "name": "3dglobe",
-      "version": "1.1.3"
+      "version": "1.2.4"
     },
     {
       "type": "panel",
       "id": "system73-3dtopology-panel",
       "name": "3d Topology",
-      "version": "1.1.3"
+      "version": "1.2.1"
     },
     {
       "type": "panel",
@@ -1148,7 +1148,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(*) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND VideoResolutionHeight > 0 AND VideoResolutionWidth > 0 AND (((ViewportHeight - VideoResolutionHeight) / CAST(VideoResolutionHeight AS FLOAT) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth) / CAST(VideoResolutionWidth AS FLOAT) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolutions\\\", COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND VideoResolutionHeight > 0 AND VideoResolutionWidth > 0 AND (((ViewportHeight - VideoResolutionHeight) / CAST(VideoResolutionHeight AS FLOAT) <= 0.01) OR ((ViewportWidth - VideoResolutionWidth) / CAST(VideoResolutionWidth AS FLOAT) <= 0.01)) AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1285,7 +1285,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT base.\\\"timestamp\\\", CONCAT(base.\\\"video_res_height\\\", 'p') AS \\\"video_res\\\", SUM(base.\\\"audience\\\") AS \\\"suboptimal_count\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MaskedStreamUri, VideoResolutionHeight AS \\\"video_res_height\\\", COUNT(*) AS \\\"audience\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3) AS \\\"base\\\" LEFT JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MaskedStreamUri, MAX(VideoResolutionHeight) AS \\\"max_res_height\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2) AS \\\"res_filter\\\" ON base.\\\"timestamp\\\" = res_filter.\\\"timestamp\\\" AND base.\\\"MaskedStreamUri\\\" = res_filter.\\\"MaskedStreamUri\\\" WHERE base.\\\"video_res_height\\\" < res_filter.\\\"max_res_height\\\" GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT base.\\\"timestamp\\\", CONCAT(base.\\\"video_res_height\\\", 'p') AS \\\"video_res\\\", SUM(base.\\\"audience\\\") AS \\\"suboptimal_count\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MaskedStreamUri, VideoResolutionHeight AS \\\"video_res_height\\\", COUNT(DISTINCT SessionId) AS \\\"audience\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3) AS \\\"base\\\" LEFT JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MaskedStreamUri, MAX(VideoResolutionHeight) AS \\\"max_res_height\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2) AS \\\"res_filter\\\" ON base.\\\"timestamp\\\" = res_filter.\\\"timestamp\\\" AND base.\\\"MaskedStreamUri\\\" = res_filter.\\\"MaskedStreamUri\\\" WHERE base.\\\"video_res_height\\\" < res_filter.\\\"max_res_height\\\" GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1421,7 +1421,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"timeout\": 240000\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1668,7 +1668,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(MaxPlayingTime) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(PlayingTime / (60 * 1000)) AS \\\"MaxPlayingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(MaxPlayingTime) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(PlayingTime / (60 * 1000)) AS \\\"MaxPlayingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"timeout\": 240000\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1780,7 +1780,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(BufferingRatio) AS \\\"AbsAvgBufferingRatio\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN (MAX(PlayingTime) + MAX(BufferingTime)) = 0 THEN 0 ELSE MAX(BufferingTime) / (MAX(PlayingTime) + MAX(BufferingTime) * 1.0) END AS \\\"BufferingRatio\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE BufferingTime <= 600000 AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(BufferingRatio) AS \\\"AbsAvgBufferingRatio\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN (MAX(PlayingTime) + MAX(BufferingTime)) = 0 THEN 0 ELSE MAX(BufferingTime) / (MAX(PlayingTime) + MAX(BufferingTime) * 1.0) END AS \\\"BufferingRatio\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE BufferingTime <= 600000 AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"timeout\": 240000\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1930,6 +1930,203 @@
         "type": "marcusolsson-json-datasource",
         "uid": ""
       },
+      "description": "Percentage of the reported player sessions within the selected time range, aggregated by player state.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "axisSoftMin": 0,
+            "barAlignment": 1,
+            "drawStyle": "bars",
+            "fillOpacity": 66,
+            "gradientMode": "opacity",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "percent"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "noValue": "0",
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green"
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  playing"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  pause"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  unknown"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  starting"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "seeking"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "orange",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 10,
+        "w": 8,
+        "x": 16,
+        "y": 26
+      },
+      "id": 57,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "multi",
+          "sort": "desc"
+        }
+      },
+      "targets": [
+        {
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", PlayerState, COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"timeout\": 240000\n  }\n}",
+          "cacheDurationSeconds": 0,
+          "datasource": {
+            "type": "marcusolsson-json-datasource",
+            "uid": ""
+          },
+          "fields": [
+            {
+              "jsonPath": "$.[*].timestamp",
+              "type": "time"
+            },
+            {
+              "jsonPath": "$.[*].PlayerState",
+              "language": "jsonpath",
+              "name": "",
+              "type": "string"
+            },
+            {
+              "jsonPath": "$.[*]. ",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            }
+          ],
+          "headers": [],
+          "hide": false,
+          "method": "POST",
+          "queryParams": "",
+          "refId": "A",
+          "urlPath": "/v1/query/sql"
+        }
+      ],
+      "title": "Player State",
+      "transformations": [
+        {
+          "id": "prepareTimeSeries",
+          "options": {
+            "format": "multi"
+          }
+        }
+      ],
+      "transparent": true,
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "marcusolsson-json-datasource",
+        "uid": ""
+      },
       "gridPos": {
         "h": 1,
         "w": 24,
@@ -2017,7 +2214,6 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
           "noValue": "0",
           "thresholds": {
@@ -2128,7 +2324,6 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
           "noValue": "0",
           "thresholds": {
@@ -2255,7 +2450,9 @@
           }
         },
         "cellGap": 1,
-        "cellValues": {},
+        "cellValues": {
+          "unit": "none"
+        },
         "color": {
           "exponent": 0.5,
           "fill": "#b4ff00",
@@ -2269,7 +2466,7 @@
           "color": "rgba(255,0,255,0.7)"
         },
         "filterValues": {
-          "le": 1e-09
+          "le": 0
         },
         "legend": {
           "show": true
@@ -2280,10 +2477,11 @@
         "showValue": "never",
         "tooltip": {
           "show": true,
-          "yHistogram": false
+          "yHistogram": true
         },
         "yAxis": {
           "axisPlacement": "left",
+          "min": 1,
           "reverse": false,
           "unit": "Kbits"
         }
@@ -2292,7 +2490,7 @@
       "reverseYBuckets": false,
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN DownlinkSpeed <= 10000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 1000) WHEN DownlinkSpeed > 10000 AND DownlinkSpeed <= 100000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 10000) WHEN DownlinkSpeed > 100000 AND DownlinkSpeed <= 1000000 THEN DownlinkSpeed - MOD(DownlinkSpeed, 100000) ELSE DownlinkSpeed - MOD(DownlinkSpeed, 1000000) END AS \\\"DownlinkSpeed\\\", COUNT(DISTINCT (SessionId)) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CASE WHEN DownlinkSpeed = 0 THEN 0 ELSE DownlinkSpeed - MOD(DownlinkSpeed, POWER(10, FLOOR(LOG10(DownlinkSpeed)))) END AS \\\"DownlinkSpeed\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -2305,12 +2503,6 @@
             },
             {
               "jsonPath": "$.[*].DownlinkSpeed",
-              "language": "jsonpath",
-              "name": "",
-              "type": "number"
-            },
-            {
-              "jsonPath": "$.[*]. ",
               "language": "jsonpath",
               "name": "",
               "type": "number"
@@ -2383,7 +2575,6 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
           "noValue": "0",
           "thresholds": {
@@ -2508,9 +2699,7 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
-          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -2652,9 +2841,7 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
-          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -2796,7 +2983,6 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
           "noValue": "0",
           "thresholds": {
@@ -2921,9 +3107,7 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
-          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -3065,9 +3249,7 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
-          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -3253,7 +3435,6 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
           "noValue": "0",
           "thresholds": {
@@ -3389,7 +3570,6 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
           "noValue": "0",
           "thresholds": {
@@ -3525,10 +3705,8 @@
               "mode": "off"
             }
           },
-          "decimals": 0,
           "mappings": [],
           "max": 100,
-          "min": 0,
           "noValue": "0%",
           "thresholds": {
             "mode": "absolute",
@@ -4007,7 +4185,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": ""
       },
-      "description": "Geospatial distribution of the audience. Please note that the available data retention is up to last 30 days.\n\nThe timestamp shown is the point in time used to represent the Audience distribution close to the end of the selected time range.",
+      "description": "Geospatial distribution of the audience.\n\nPlease note that data points from the past are limitted in order to not overload the chart. You can adjust the visible timeframe by changing the \"To\" date in dashboard filters.",
       "gridPos": {
         "h": 18,
         "w": 12,
@@ -4017,7 +4195,7 @@
       "id": 53,
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT DISTINCT TIME_FLOOR(__time, 'PT1S') AS \\\"timestamp\\\", NodeId AS \\\"TargetId\\\", COALESCE(ReceiveFromNodeId, '0') AS \\\"TargetSource\\\", Latitude, Longitude, BufferHealth / 1000.0 AS \\\"BufferHealth\\\", SessionId FROM \\\"sdk-${region}-realtime\\\" WHERE NodeId != 'no-node-id' AND Latitude != '' AND Longitude != '' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND (__time >= MILLIS_TO_TIMESTAMP(${__to} - 6000) AND __time <= MILLIS_TO_TIMESTAMP(${__to})) ORDER BY 1 DESC\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"WITH GroupedBySession AS (SELECT MAX(__time) AS \\\"timestamp\\\", SessionId, LATEST_BY(NodeId, __time, 56) AS \\\"TargetId\\\", COALESCE(LATEST_BY(CASE WHEN ReceiveFromNodeId != 'no-node-id' THEN ReceiveFromNodeId ELSE 'CDN' END, __time, 56), 'CDN') AS \\\"TargetSource\\\", LATEST_BY(Latitude, __time) AS \\\"Latitude\\\", LATEST_BY(Longitude, __time) AS \\\"Longitude\\\", LATEST_BY(BufferHealth, __time) / 1000.0 AS \\\"BufferHealth\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE Latitude != '' AND Longitude != '' AND CustomerId = '${customer_id}' AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId HAVING (CAST('${channel_id}' AS int) = -1 OR LATEST_BY(ChannelId, __time, 56) IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR LATEST_BY(MaskedStreamUri, __time, 56) IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR LATEST_BY(Bitrate, __time, 56) IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR LATEST_BY(StreamState, __time, 56) IN ('${stream_state}')) ORDER BY \\\"timestamp\\\" DESC LIMIT 10000), GroupedByNodeId AS (SELECT NodeId, SessionId, LATEST_BY(Latitude, __time) AS \\\"Latitude\\\", LATEST_BY(Longitude, __time) AS \\\"Longitude\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE NodeId != 'no-node-id' AND Latitude != '' AND Longitude != '' AND CustomerId = '${customer_id}' AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY NodeId, SessionId) SELECT base.*, perNode.\\\"Latitude\\\" AS \\\"TargetSourceLatitude\\\", perNode.\\\"Longitude\\\" AS \\\"TargetSourceLongitude\\\" FROM GroupedBySession AS base LEFT JOIN GroupedByNodeId AS perNode ON base.\\\"TargetSource\\\" = perNode.NodeId\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -4063,6 +4241,18 @@
               "language": "jsonpath",
               "name": "",
               "type": "string"
+            },
+            {
+              "jsonPath": "$.[*].TargetSourceLatitude",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].TargetSourceLongitude",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
             }
           ],
           "headers": [],
@@ -4090,7 +4280,7 @@
       "id": 54,
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT DISTINCT TIME_FLOOR(__time, 'PT1S') AS \\\"timestamp\\\", NodeId, COALESCE(ReceiveFromNodeId, 'CDN') AS \\\"Source\\\", AggregateBufferFillingRate * 100 AS \\\"AggregateBufferFillingRate\\\", BufferHealth / 1000.0 AS \\\"BufferHealth\\\", ConnectionStatus, NatType, UplinkCapacity, Ip, Asn, AsName, SessionId FROM \\\"sdk-${region}-realtime\\\" WHERE NodeId != 'no-node-id' AND (ConnectionStatus = 'NO_PARENT' OR ConnectionStatus = 'P2P_CONNECTED') AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND (__time >= MILLIS_TO_TIMESTAMP(${__to} - 6000) AND __time <= MILLIS_TO_TIMESTAMP(${__to})) ORDER BY 1 DESC\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT DISTINCT TIME_FLOOR(__time, 'PT1S') AS \\\"timestamp\\\", CASE WHEN NodeId != 'no-node-id' THEN NodeId ELSE SessionId END AS \\\"NodeId\\\", COALESCE(ReceiveFromNodeId, 'CDN') AS \\\"Source\\\", AggregateBufferFillingRate * 100 AS \\\"AggregateBufferFillingRate\\\", BufferHealth / 1000.0 AS \\\"BufferHealth\\\", ConnectionStatus, NatType, UplinkCapacity, Ip, Asn, AsName, SessionId FROM \\\"sdk-${region}-realtime\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND (__time >= MILLIS_TO_TIMESTAMP(${__to} - 6000) AND __time <= MILLIS_TO_TIMESTAMP(${__to})) ORDER BY 1 DESC\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
