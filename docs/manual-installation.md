@@ -31,8 +31,8 @@ img
    ```console
    docker run -d -p 3000:3000 --name=grafana \
       -e "GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=system73-3dtopology-panel,system73-3dglobe-panel" \
-      -e "GF_INSTALL_PLUGINS=marcusolsson-json-datasource, https://cdn.s73cloud.com/grafana-plugin/system73-3dtopology-panel-1.1.1.zip;system73-3dtopology-panel, \
-         https://cdn.s73cloud.com/grafana-plugin/system73-3dglobe-panel-1.1.0.zip;system73-3dglobe-panel" \
+      -e "GF_INSTALL_PLUGINS=marcusolsson-json-datasource, https://cdn.s73cloud.com/grafana-plugin/system73-3dtopology-panel-1.2.1.zip;system73-3dtopology-panel, \
+         https://cdn.s73cloud.com/grafana-plugin/system73-3dglobe-panel-1.2.4.zip;system73-3dglobe-panel" \
       grafana/grafana-oss:9.4.7
    ```
 
