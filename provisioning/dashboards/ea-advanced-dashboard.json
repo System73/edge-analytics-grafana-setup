@@ -45,13 +45,13 @@
       "type": "panel",
       "id": "system73-3dglobe-panel",
       "name": "3dglobe",
-      "version": "1.2.4"
+      "version": "1.2.5"
     },
     {
       "type": "panel",
       "id": "system73-3dtopology-panel",
       "name": "3d Topology",
-      "version": "1.2.1"
+      "version": "1.3.1"
     },
     {
       "type": "panel",
@@ -2043,7 +2043,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "seeking"
+              "options": "  seeking"
             },
             "properties": [
               {
@@ -2058,7 +2058,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "buffering"
+              "options": "  buffering"
             },
             "properties": [
               {
@@ -4200,7 +4200,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": ""
       },
-      "description": "Geospatial distribution of the audience.\n\nPlease note that data points from the past are limitted in order to not overload the chart. You can adjust the visible timeframe by changing the \"To\" date in dashboard filters.",
+      "description": "Geospatial distribution of the audience.\n\nPlease note that data points from the past are limited in order to not overload the chart. You can adjust the visible timeframe by changing the \"To\" date in dashboard filters.",
       "gridPos": {
         "h": 18,
         "w": 12,
@@ -4210,7 +4210,7 @@
       "id": 53,
       "targets": [
         {
-          "body": "{\n  \"query\" : \"WITH GroupedBySession AS (SELECT MAX(__time) AS \\\"timestamp\\\", SessionId, LATEST_BY(NodeId, __time, 56) AS \\\"TargetId\\\", COALESCE(LATEST_BY(CASE WHEN ReceiveFromNodeId != 'no-node-id' THEN ReceiveFromNodeId ELSE 'CDN' END, __time, 56), 'CDN') AS \\\"TargetSource\\\", LATEST_BY(Latitude, __time) AS \\\"Latitude\\\", LATEST_BY(Longitude, __time) AS \\\"Longitude\\\", LATEST_BY(BufferHealth, __time) / 1000.0 AS \\\"BufferHealth\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE Latitude != '' AND Longitude != '' AND CustomerId = '${customer_id}' AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId HAVING (CAST('${channel_id}' AS int) = -1 OR LATEST_BY(ChannelId, __time, 56) IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR LATEST_BY(MaskedStreamUri, __time, 56) IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR LATEST_BY(Bitrate, __time, 56) IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR LATEST_BY(StreamState, __time, 56) IN ('${stream_state}')) ORDER BY \\\"timestamp\\\" DESC LIMIT 10000), GroupedByNodeId AS (SELECT NodeId, SessionId, LATEST_BY(Latitude, __time) AS \\\"Latitude\\\", LATEST_BY(Longitude, __time) AS \\\"Longitude\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE NodeId != 'no-node-id' AND Latitude != '' AND Longitude != '' AND CustomerId = '${customer_id}' AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY NodeId, SessionId) SELECT base.*, perNode.\\\"Latitude\\\" AS \\\"TargetSourceLatitude\\\", perNode.\\\"Longitude\\\" AS \\\"TargetSourceLongitude\\\" FROM GroupedBySession AS base LEFT JOIN GroupedByNodeId AS perNode ON base.\\\"TargetSource\\\" = perNode.NodeId\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"WITH GroupedBySession AS (SELECT MAX(__time) AS \\\"timestamp\\\", SessionId, LATEST_BY(NodeId, __time, 56) AS \\\"TargetId\\\", COALESCE(LATEST_BY(CASE WHEN ReceiveFromNodeId != 'no-node-id' THEN ReceiveFromNodeId ELSE 'CDN' END, __time, 56), 'CDN') AS \\\"TargetSource\\\", LATEST_BY(Latitude, __time) AS \\\"Latitude\\\", LATEST_BY(Longitude, __time) AS \\\"Longitude\\\", LATEST_BY(BufferHealth, __time) / 1000.0 AS \\\"BufferHealth\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE Latitude IS NOT NULL AND Longitude IS NOT NULL AND CustomerId = '${customer_id}' AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId HAVING (CAST('${channel_id}' AS int) = -1 OR LATEST_BY(ChannelId, __time, 56) IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR LATEST_BY(MaskedStreamUri, __time, 56) IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR LATEST_BY(Bitrate, __time, 56) IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR LATEST_BY(StreamState, __time, 56) IN ('${stream_state}')) ORDER BY \\\"timestamp\\\" DESC LIMIT 5000), GroupedByNodeId AS (SELECT NodeId, SessionId, LATEST_BY(Latitude, __time) AS \\\"Latitude\\\", LATEST_BY(Longitude, __time) AS \\\"Longitude\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE NodeId != 'no-node-id' AND Latitude IS NOT NULL AND Longitude IS NOT NULL AND CustomerId = '${customer_id}' AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY NodeId, SessionId) SELECT base.*, perNode.\\\"Latitude\\\" AS \\\"TargetSourceLatitude\\\", perNode.\\\"Longitude\\\" AS \\\"TargetSourceLongitude\\\" FROM GroupedBySession AS base LEFT JOIN GroupedByNodeId AS perNode ON base.\\\"TargetSource\\\" = perNode.NodeId\",\n    \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
