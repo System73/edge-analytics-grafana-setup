@@ -33,7 +33,7 @@
       "type": "datasource",
       "id": "marcusolsson-json-datasource",
       "name": "JSON API",
-      "version": "1.3.12"
+      "version": "1.3.13"
     },
     {
       "type": "panel",
@@ -115,7 +115,6 @@
             "mode": "fixed"
           },
           "mappings": [],
-          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -422,8 +421,18 @@
             "fixedColor": "#6666b3",
             "mode": "fixed"
           },
-          "mappings": [],
-          "noValue": "0",
+          "mappings": [
+            {
+              "options": {
+                "match": "nan",
+                "result": {
+                  "index": 0,
+                  "text": "\u200b"
+                }
+              },
+              "type": "special"
+            }
+          ],
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -1285,7 +1294,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT base.\\\"timestamp\\\", CONCAT(base.\\\"video_res_height\\\", 'p') AS \\\"video_res\\\", SUM(base.\\\"audience\\\") AS \\\"suboptimal_count\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MaskedStreamUri, VideoResolutionHeight AS \\\"video_res_height\\\", COUNT(DISTINCT SessionId) AS \\\"audience\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, 3) AS \\\"base\\\" LEFT JOIN (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MaskedStreamUri, MAX(VideoResolutionHeight) AS \\\"max_res_height\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2) AS \\\"res_filter\\\" ON base.\\\"timestamp\\\" = res_filter.\\\"timestamp\\\" AND base.\\\"MaskedStreamUri\\\" = res_filter.\\\"MaskedStreamUri\\\" WHERE base.\\\"video_res_height\\\" < res_filter.\\\"max_res_height\\\" GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", CONCAT(\\\"VideoResolutionHeight\\\", 'p') AS \\\"video_res\\\", CAST(SUM(\\\"audience\\\") AS FLOAT) AS \\\"suboptimal_count\\\" FROM(SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", VideoResolutionHeight, COUNT(DISTINCT SessionId) AS \\\"audience\\\", MAX(VideoResolutionHeight) OVER (PARTITION BY TIME_FLOOR(__time, 'P${iso_period}'), MaskedStreamUri) AS \\\"max_res_height\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IN ('playing', 'buffering') AND (((ViewportHeight - VideoResolutionHeight) / (CASE WHEN VideoResolutionHeight = 0 THEN 1.0 ELSE CAST(VideoResolutionHeight AS FLOAT) END) > 0.01) AND ((ViewportWidth - VideoResolutionWidth) / (CASE WHEN VideoResolutionWidth = 0 THEN 1.0 ELSE CAST(VideoResolutionWidth AS FLOAT) END) > 0.01)) AND RepresentationId NOT LIKE '1 of%' AND RepresentationId != '0' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, MaskedStreamUri, VideoResolutionHeight) WHERE VideoResolutionHeight < max_res_height GROUP BY 1, VideoResolutionHeight\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"enableWindowing\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1532,7 +1541,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolution\\\", (SUM(ViewingTime) / 3600.0) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", CONCAT(VideoResolutionHeight, 'p') AS \\\"VideoResolution\\\", (SUM(ViewingTime) / 3600.0) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND VideoResolutionHeight IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
