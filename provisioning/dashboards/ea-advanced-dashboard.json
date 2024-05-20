@@ -33,7 +33,7 @@
       "type": "datasource",
       "id": "marcusolsson-json-datasource",
       "name": "JSON API",
-      "version": "1.3.14"
+      "version": "1.3.15"
     },
     {
       "type": "panel",
@@ -105,7 +105,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The highest number of devices connected simultaneously for the selected time period.",
       "fieldConfig": {
@@ -159,7 +159,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -181,7 +181,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over CDN for the selected time period.",
       "fieldConfig": {
@@ -236,7 +236,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -258,7 +258,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over P2P for the selected time period.",
       "fieldConfig": {
@@ -313,7 +313,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -335,7 +335,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The Total Offload Percentage of the video distribution for the selected time period.",
       "fieldConfig": {
@@ -390,7 +390,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -412,7 +412,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The median of the amount of time that takes from loading the connection to the first video frame.",
       "fieldConfig": {
@@ -478,7 +478,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -500,7 +500,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The total of playtime for the selected time period.",
       "fieldConfig": {
@@ -555,7 +555,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -591,7 +591,7 @@
         {
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -704,7 +704,7 @@
               "cacheDurationSeconds": 0,
               "datasource": {
                 "type": "marcusolsson-json-datasource",
-                "uid": ""
+                "uid": "${DS_SYSTEM73_ANALYTICS}"
               },
               "fields": [
                 {
@@ -754,7 +754,7 @@
               "cacheDurationSeconds": 0,
               "datasource": {
                 "type": "marcusolsson-json-datasource",
-                "uid": ""
+                "uid": "${DS_SYSTEM73_ANALYTICS}"
               },
               "fields": [
                 {
@@ -879,7 +879,7 @@
         {
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "gridPos": {
             "h": 1,
@@ -943,7 +943,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Number of playback sessions within the selected time range, aggregated per time granularity interval.",
       "fieldConfig": {
@@ -1025,7 +1025,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1079,7 +1079,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The total number of devices that are getting the best resolution they can represent.",
       "fieldConfig": {
@@ -1161,7 +1161,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1215,7 +1215,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The total number of devices that are getting lower resolution than they can represent.",
       "fieldConfig": {
@@ -1298,7 +1298,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1352,7 +1352,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The time it takes to present the first frame to the viewer after the service finishes loading.",
       "fieldConfig": {
@@ -1434,7 +1434,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1463,7 +1463,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The total number of hours the content is being played over time, per granularity time window.",
       "fieldConfig": {
@@ -1545,7 +1545,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1599,7 +1599,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The average playtime that the content has been consumed by the audience per session over time.",
       "fieldConfig": {
@@ -1681,7 +1681,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1710,7 +1710,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Percentage of BufferingTime during PlayingTime for Devices that have been less than 10 min in a buffering state.",
       "fieldConfig": {
@@ -1793,7 +1793,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1822,7 +1822,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Percentage of total playing viewers at an optimal/suboptimal viewport resolution, where the \"optimal\" corresponds to the audience consuming the video representation with a resolution closest to the viewport reported by the video player.",
       "fieldConfig": {
@@ -1901,7 +1901,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -1937,7 +1937,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Percentage of the reported player sessions within the selected time range, aggregated by player state.",
       "fieldConfig": {
@@ -2106,7 +2106,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2149,7 +2149,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "gridPos": {
         "h": 1,
@@ -2200,7 +2200,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over CDN (Content Delivery Network/s).",
       "fieldConfig": {
@@ -2281,7 +2281,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2310,7 +2310,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All of the data transferred over P2P Connections (i.e. coming from Edge Intelligence).",
       "fieldConfig": {
@@ -2391,7 +2391,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2431,7 +2431,7 @@
       "dataFormat": "timeseries",
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total audience distribution by connection speed.",
       "fieldConfig": {
@@ -2518,7 +2518,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2561,7 +2561,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "All the data transferred over the Content Delivery Network pathway(s) configured on System73 Edge Delivery service",
       "fieldConfig": {
@@ -2642,7 +2642,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2685,7 +2685,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total audience distribution by Browser for web platforms.",
       "fieldConfig": {
@@ -2766,7 +2766,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2827,7 +2827,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total audience distribution by Operating Systems.",
       "fieldConfig": {
@@ -2908,7 +2908,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -2969,7 +2969,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "HTTP request from the CDN should be included in the header in order to be available on the chart",
       "fieldConfig": {
@@ -3050,7 +3050,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -3093,7 +3093,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total audience distribution by native apps or web media players.",
       "fieldConfig": {
@@ -3174,7 +3174,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -3235,7 +3235,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total audience distribution by their connection type.",
       "fieldConfig": {
@@ -3316,7 +3316,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -3370,7 +3370,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "gridPos": {
         "h": 1,
@@ -3421,7 +3421,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total audience distribution by their ASN (showing separately 'Top 5' + Others).",
       "fieldConfig": {
@@ -3502,7 +3502,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -3556,7 +3556,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total amount of CDN traffic incoming from each ASN (showing separately 'Top 5' + Others).",
       "fieldConfig": {
@@ -3637,7 +3637,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -3691,7 +3691,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Total traffic volume in percentages from each ASN (showing separately 'Top 5' + Others).",
       "fieldConfig": {
@@ -3773,7 +3773,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -3828,7 +3828,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "gridPos": {
         "h": 1,
@@ -3879,7 +3879,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -3986,7 +3986,7 @@
           "columns": [],
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -4036,7 +4036,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -4125,7 +4125,7 @@
           "columns": [],
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -4169,7 +4169,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "gridPos": {
         "h": 1,
@@ -4207,7 +4207,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "Geospatial distribution of the audience.\n\nPlease note that data points from the past are limited in order to not overload the chart. You can adjust the visible timeframe by changing the \"To\" date in dashboard filters.",
       "gridPos": {
@@ -4223,7 +4223,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -4292,7 +4292,7 @@
     {
       "datasource": {
         "type": "marcusolsson-json-datasource",
-        "uid": ""
+        "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
       "description": "The network topology of the audience. Please note that the available data retention is up to last 30 days.\n\nThe timestamp shown is the point in time used to represent the Audience topology close to the end of the selected time range.",
       "gridPos": {
@@ -4308,7 +4308,7 @@
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
-            "uid": ""
+            "uid": "${DS_SYSTEM73_ANALYTICS}"
           },
           "fields": [
             {
@@ -4482,7 +4482,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": ""
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].ChannelId",
         "description": "Filter by the unique ID of your streaming channel",
@@ -4517,7 +4517,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": ""
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].MaskedStreamUri",
         "description": "Filter by the streaming URI (Universal Resource Identifier). NOTE: URI is the part of URL link generated for end-users.",
@@ -4552,7 +4552,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": ""
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].Bitrate",
         "description": "Filter by the player's bitrate in bps (bits per second)",
@@ -4626,7 +4626,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": ""
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].label",
         "description": "Select the data granularity",
@@ -4675,7 +4675,7 @@
         "current": {},
         "datasource": {
           "type": "marcusolsson-json-datasource",
-          "uid": ""
+          "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.layer",
         "description": "Dremel data layer (type of Druid's datasource) to interpolate within the datasource name",
@@ -4743,6 +4743,24 @@
         "queryValue": "",
         "skipUrlSync": false,
         "type": "custom"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "System73 Analytics",
+          "value": "System73 Analytics"
+        },
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "DS_SYSTEM73_ANALYTICS",
+        "options": [],
+        "query": "marcusolsson-json-datasource",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
