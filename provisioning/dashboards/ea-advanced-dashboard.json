@@ -13,6 +13,12 @@
   "__requires": [
     {
       "type": "panel",
+      "id": "candlestick",
+      "name": "Candlestick",
+      "version": ""
+    },
+    {
+      "type": "panel",
       "id": "geomap",
       "name": "Geomap",
       "version": ""
@@ -33,7 +39,7 @@
       "type": "datasource",
       "id": "marcusolsson-json-datasource",
       "name": "JSON API",
-      "version": "1.3.15"
+      "version": "1.3.16"
     },
     {
       "type": "panel",
@@ -45,13 +51,13 @@
       "type": "panel",
       "id": "system73-3dglobe-panel",
       "name": "3dglobe",
-      "version": "1.2.5"
+      "version": "1.2.6"
     },
     {
       "type": "panel",
       "id": "system73-3dtopology-panel",
       "name": "3d Topology",
-      "version": "1.3.4"
+      "version": "1.4.1"
     },
     {
       "type": "panel",
@@ -474,7 +480,7 @@
       "pluginVersion": "9.4.7",
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\"MedianStartingTime\\\" FROM (SELECT MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT APPROX_QUANTILE_DS(MaxStartingTime, 0.5) AS \\\"MedianStartingTime\\\" FROM (SELECT MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND StartingTime IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"groupByStrategy\": \"v2\"\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1378,36 +1384,63 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
-              "type": "linear"
+              "log": 2,
+              "type": "log"
             },
             "showPoints": "auto",
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
           "mappings": [],
-          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
               {
                 "color": "green",
                 "value": null
-              },
-              {
-                "color": "red",
-                "value": 80
               }
             ]
           },
           "unit": "ms"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Median"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Q1"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "yellow",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -1421,7 +1454,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -1430,7 +1463,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.5, 256) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND StartingTime IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"timeout\": 240000\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.25) AS \\\"Q1\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.50) AS \\\"Median\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.75) AS \\\"Q3\\\", APPROX_QUANTILE_DS(MaxStartingTime, 0.975) AS \\\"975th\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND StartingTime IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"timeout\": 240000\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -1442,9 +1475,27 @@
               "type": "time"
             },
             {
-              "jsonPath": "$.[*]. ",
+              "jsonPath": "$.[*].Q1",
               "language": "jsonpath",
               "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].Median",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].Q3",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].975th",
+              "language": "jsonpath",
+              "name": "97.5th",
               "type": "number"
             }
           ],
@@ -2052,7 +2103,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "  seeking"
+              "options": "seeking"
             },
             "properties": [
               {
@@ -2202,17 +2253,18 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "All of the data transferred over CDN (Content Delivery Network/s).",
+      "description": "Peer to Peer and all the data transferred over CDN (Content Delivery Network/s) and P2P (Peer to Peer).",
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "fixedColor": "blue",
+            "mode": "fixed"
           },
           "custom": {
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
-            "axisPlacement": "auto",
+            "axisPlacement": "right",
             "barAlignment": 1,
             "drawStyle": "bars",
             "fillOpacity": 66,
@@ -2228,7 +2280,7 @@
             "scaleDistribution": {
               "type": "linear"
             },
-            "showPoints": "auto",
+            "showPoints": "never",
             "spanNulls": false,
             "stacking": {
               "group": "A",
@@ -2254,7 +2306,78 @@
           },
           "unit": "decbytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "P2P Offload"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "percentunit"
+              },
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 1
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 1
+              },
+              {
+                "id": "custom.axisPlacement",
+                "value": "left"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "green",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineInterpolation",
+                "value": "stepAfter"
+              },
+              {
+                "id": "custom.axisSoftMin",
+                "value": 0
+              },
+              {
+                "id": "max",
+                "value": 1
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "CDN Traffic"
+            },
+            "properties": [
+              {
+                "id": "custom.drawStyle",
+                "value": "line"
+              },
+              {
+                "id": "custom.lineInterpolation",
+                "value": "stepAfter"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -2268,7 +2391,7 @@
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
         "tooltip": {
           "mode": "multi",
@@ -2277,7 +2400,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", SUM(CdnDownlinkThroughput) * 125 AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", SUM(CdnDownlinkThroughput) * 125 AS \\\"CDN Traffic\\\", SUM(P2pDownlinkThroughput) * 125 AS \\\"P2P Traffic\\\", (CAST(SUM(P2pDownlinkThroughput) AS FLOAT) / CASE WHEN SUM(TotalDownlinkThroughput) = 0 THEN 1 ELSE SUM(TotalDownlinkThroughput) END) AS \\\"P2P Offload\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -2289,7 +2412,19 @@
               "type": "time"
             },
             {
-              "jsonPath": "$.[*]. ",
+              "jsonPath": "$.[*].P2P Offload",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].P2P Traffic",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].CDN Traffic",
               "language": "jsonpath",
               "name": "",
               "type": "number"
@@ -2303,7 +2438,7 @@
           "urlPath": "/v1/query/sql"
         }
       ],
-      "title": "CDN Traffic",
+      "title": "P2P Offload and Data Traffic",
       "transparent": true,
       "type": "timeseries"
     },
@@ -2312,7 +2447,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "All of the data transferred over P2P Connections (i.e. coming from Edge Intelligence).",
+      "description": "Connection speed distribution within the selected time range.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2323,10 +2458,10 @@
             "axisColorMode": "text",
             "axisLabel": "",
             "axisPlacement": "auto",
-            "barAlignment": 1,
-            "drawStyle": "bars",
-            "fillOpacity": 66,
-            "gradientMode": "opacity",
+            "barAlignment": 0,
+            "drawStyle": "points",
+            "fillOpacity": 0,
+            "gradientMode": "none",
             "hideFrom": {
               "legend": false,
               "tooltip": false,
@@ -2336,7 +2471,8 @@
             "lineWidth": 1,
             "pointSize": 5,
             "scaleDistribution": {
-              "type": "linear"
+              "log": 2,
+              "type": "log"
             },
             "showPoints": "auto",
             "spanNulls": false,
@@ -2349,7 +2485,6 @@
             }
           },
           "mappings": [],
-          "noValue": "0",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2362,9 +2497,25 @@
               }
             ]
           },
-          "unit": "decbytes"
+          "unit": "Kbits"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Median"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -2374,20 +2525,30 @@
       },
       "id": 26,
       "options": {
+        "candleStyle": "candles",
+        "colorStrategy": "close-close",
+        "colors": {
+          "down": "blue",
+          "up": "blue"
+        },
+        "fields": {
+          "close": "Q3",
+          "high": "Q3",
+          "low": "Q1",
+          "open": "Q1"
+        },
+        "includeAllFields": true,
         "legend": {
           "calcs": [],
           "displayMode": "list",
           "placement": "bottom",
-          "showLegend": false
+          "showLegend": true
         },
-        "tooltip": {
-          "mode": "multi",
-          "sort": "none"
-        }
+        "mode": "candles"
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", SUM(P2pDownlinkThroughput) * 125 AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.25) AS \\\"Q1\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.50) AS \\\"Median\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.75) AS \\\"Q3\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", DownlinkSpeed FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -2399,7 +2560,19 @@
               "type": "time"
             },
             {
-              "jsonPath": "$.[*]. ",
+              "jsonPath": "$.[*].Q1",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].Median",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].Q3",
               "language": "jsonpath",
               "name": "",
               "type": "number"
@@ -2413,9 +2586,9 @@
           "urlPath": "/v1/query/sql"
         }
       ],
-      "title": "P2P Traffic",
+      "title": "Connection Speed Distribution",
       "transparent": true,
-      "type": "timeseries"
+      "type": "candlestick"
     },
     {
       "cards": {
@@ -2567,7 +2740,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "fixedColor": "purple",
+            "mode": "fixed"
           },
           "custom": {
             "axisCenteredZero": false,
@@ -2975,7 +3149,8 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "mode": "palette-classic"
+            "fixedColor": "purple",
+            "mode": "fixed"
           },
           "custom": {
             "axisCenteredZero": false,
