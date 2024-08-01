@@ -1728,7 +1728,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(MaxPlayingTime) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(PlayingTime / (60 * 1000)) AS \\\"MaxPlayingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"timeout\": 240000\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", AVG(MaxPlayingTime) AS \\\" \\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", MAX(PlayingTime / (60 * 1000)) AS \\\"MaxPlayingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayingTime > 0 AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"timeout\": 240000\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -2412,12 +2412,6 @@
               "type": "time"
             },
             {
-              "jsonPath": "$.[*].P2P Offload",
-              "language": "jsonpath",
-              "name": "",
-              "type": "number"
-            },
-            {
               "jsonPath": "$.[*].P2P Traffic",
               "language": "jsonpath",
               "name": "",
@@ -2425,6 +2419,12 @@
             },
             {
               "jsonPath": "$.[*].CDN Traffic",
+              "language": "jsonpath",
+              "name": "",
+              "type": "number"
+            },
+            {
+              "jsonPath": "$.[*].P2P Offload",
               "language": "jsonpath",
               "name": "",
               "type": "number"
@@ -2548,7 +2548,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT \\\"timestamp\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.25) AS \\\"Q1\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.50) AS \\\"Median\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.75) AS \\\"Q3\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", DownlinkSpeed FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2, SessionId) GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.25) AS \\\"Q1\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.50) AS \\\"Median\\\", APPROX_QUANTILE_DS(DownlinkSpeed, 0.75) AS \\\"Q3\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE DownlinkSpeed IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
