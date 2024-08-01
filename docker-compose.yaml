@@ -1,7 +1,7 @@
 services:
 
   grafana:
-    image: grafana/grafana-oss:9.4.7
+    image: grafana/grafana-oss:11.0.0
     environment:
       - TERM=xterm
       - GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS=system73-3dtopology-panel,system73-3dglobe-panel
