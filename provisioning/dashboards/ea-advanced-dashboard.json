@@ -343,7 +343,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "The Total Offload Percentage of the video distribution for the selected time period.",
+      "description": "The total P2P offload percentage of the video distribution for the selected time period.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -411,7 +411,7 @@
           "urlPath": "/v1/query/sql"
         }
       ],
-      "title": "Offload",
+      "title": "P2P Offload",
       "transparent": true,
       "type": "stat"
     },
@@ -1360,7 +1360,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "The time it takes to present the first frame to the viewer after the service finishes loading.",
+      "description": "The time it takes to present the first frame to the viewer after the service finishes loading.\n\nBars are distributed by four quantiles:\n\n* **Q1 (25th percentile)**: This is the value below which 25% of the data falls.\n* **Median (50th percentile)**: This is the middle value of the dataset, where 50% of the data\n  falls below and 50% above.\n* **Q3 (75th percentile)**: This is the value below which 75% of the data falls.\n* **97.5th percentile**: This indicates the value below which 97.5% of the data falls.",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -2021,14 +2021,14 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "percent"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
             }
           },
           "mappings": [],
-          "noValue": "0",
+          "noValue": "0%",
           "thresholds": {
             "mode": "absolute",
             "steps": [
@@ -2037,7 +2037,7 @@
               }
             ]
           },
-          "unit": "none"
+          "unit": "percentunit"
         },
         "overrides": [
           {
@@ -2103,7 +2103,7 @@
           {
             "matcher": {
               "id": "byName",
-              "options": "seeking"
+              "options": "  seeking"
             },
             "properties": [
               {
@@ -2153,7 +2153,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", PlayerState, COUNT(DISTINCT SessionId) AS \\\" \\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"timeout\": 240000\n  }\n}",
+          "body": "{\n  \"query\" : \"SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", PlayerState, (COUNT(DISTINCT SessionId) / ((SUM(COUNT(DISTINCT SessionId)) OVER (PARTITION BY TIME_FLOOR(__time, 'P${iso_period}'))) * 1.0)) AS \\\"percentage\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true,\n    \"useApproximateCountDistinct\": ${accuracy},\n    \"timeout\": 240000,\n    \"enableWindowing\": true\n  }\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -2171,9 +2171,9 @@
               "type": "string"
             },
             {
-              "jsonPath": "$.[*]. ",
+              "jsonPath": "$.[*].percentage",
               "language": "jsonpath",
-              "name": "",
+              "name": " ",
               "type": "number"
             }
           ],
@@ -2284,7 +2284,7 @@
             "spanNulls": false,
             "stacking": {
               "group": "A",
-              "mode": "none"
+              "mode": "normal"
             },
             "thresholdsStyle": {
               "mode": "off"
@@ -2361,14 +2361,6 @@
             },
             "properties": [
               {
-                "id": "custom.drawStyle",
-                "value": "line"
-              },
-              {
-                "id": "custom.lineInterpolation",
-                "value": "stepAfter"
-              },
-              {
                 "id": "color",
                 "value": {
                   "fixedColor": "dark-purple",
@@ -2395,7 +2387,7 @@
         },
         "tooltip": {
           "mode": "multi",
-          "sort": "none"
+          "sort": "asc"
         }
       },
       "targets": [
@@ -2412,13 +2404,13 @@
               "type": "time"
             },
             {
-              "jsonPath": "$.[*].P2P Traffic",
+              "jsonPath": "$.[*].CDN Traffic",
               "language": "jsonpath",
               "name": "",
               "type": "number"
             },
             {
-              "jsonPath": "$.[*].CDN Traffic",
+              "jsonPath": "$.[*].P2P Traffic",
               "language": "jsonpath",
               "name": "",
               "type": "number"
@@ -2740,8 +2732,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "purple",
-            "mode": "fixed"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisCenteredZero": false,
@@ -2789,7 +2780,38 @@
           },
           "unit": "decbytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  default"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "default"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -2850,6 +2872,28 @@
           "id": "prepareTimeSeries",
           "options": {
             "format": "multi"
+          }
+        },
+        {
+          "id": "joinByField",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*\"(.*)\",.*$",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "default": 1,
+              "timestamp": 0
+            },
+            "renameByName": {}
           }
         }
       ],
@@ -3149,8 +3193,7 @@
       "fieldConfig": {
         "defaults": {
           "color": {
-            "fixedColor": "purple",
-            "mode": "fixed"
+            "mode": "palette-classic"
           },
           "custom": {
             "axisCenteredZero": false,
@@ -3198,7 +3241,38 @@
           },
           "unit": "decbytes"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "  default"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "default"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "purple",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 10,
@@ -3259,6 +3333,28 @@
           "id": "prepareTimeSeries",
           "options": {
             "format": "multi"
+          }
+        },
+        {
+          "id": "joinByField",
+          "options": {}
+        },
+        {
+          "id": "renameByRegex",
+          "options": {
+            "regex": "^.*\"(.*)\",.*$",
+            "renamePattern": "$1"
+          }
+        },
+        {
+          "id": "organize",
+          "options": {
+            "excludeByName": {},
+            "indexByName": {
+              "default": 1,
+              "timestamp": 0
+            },
+            "renameByName": {}
           }
         }
       ],
