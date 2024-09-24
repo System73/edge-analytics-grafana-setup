@@ -1360,7 +1360,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "The time it takes to present the first frame to the viewer after the service finishes loading.\n\nBars are distributed by four quantiles:\n\n* **Q1 (25th percentile)**: This is the value below which 25% of the data falls.\n* **Median (50th percentile)**: This is the middle value of the dataset, where 50% of the data\n  falls below and 50% above.\n* **Q3 (75th percentile)**: This is the value below which 75% of the data falls.\n* **97.5th percentile**: This indicates the value below which 97.5% of the data falls.",
+      "description": "The time it takes to present the first frame to the viewer after the service finishes loading.\n\nBars are distributed by four quantiles:\n\n* **Q1 (25th percentile)**: This is the value below which 25% of the data falls.\n* **Median (50th percentile)**: This is the middle value of the dataset, where 50% of the data\n  falls below and 50% above.\n* **Q3 (75th percentile)**: This is the value below which 75% of the data falls.\n* **97.5th percentile**: This indicates the value below which 97.5% of the data falls.\n\n<a href=\"https://docs.system73.com/services/edge-analytics/dashboard/#join-time_1\" target=\"_blank\">Details</a>",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1948,7 +1948,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy}\n}",
+          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy},\n  \"target_customer_id\": \"${customer_id}\"\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -2253,7 +2253,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "Peer to Peer and all the data transferred over CDN (Content Delivery Network/s) and P2P (Peer to Peer).",
+      "description": "Peer to Peer and all the data transferred over CDN (Content Delivery Network/s) and P2P (Peer to Peer).\n\n<a href=\"https://docs.system73.com/services/edge-analytics/dashboard/#p2p-offload-and-data-traffic\" target=\"_blank\">Details</a>",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -3769,7 +3769,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy}\n}",
+          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy},\n  \"target_customer_id\": \"${customer_id}\"\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -3904,7 +3904,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy}\n}",
+          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy},\n  \"target_customer_id\": \"${customer_id}\"\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
@@ -4040,7 +4040,7 @@
       },
       "targets": [
         {
-          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy}\n}",
+          "body": "{\n  \"data_layer\": \"${data_layer}\",\n  \"from_date\": \"${__from:date:iso}\",\n  \"to_date\": \"${__to:date:iso}\",\n  \"channel_id\": \"${channel_id}\",\n  \"bitrate\": \"${bitrate}\",\n  \"stream_uri\": \"${stream_uri}\",\n  \"stream_state\": \"${stream_state}\",\n  \"granularity\": \"P${iso_period}\",\n  \"approximate_count_distinct\": ${accuracy},\n  \"target_customer_id\": \"${customer_id}\"\n}",
           "cacheDurationSeconds": 0,
           "datasource": {
             "type": "marcusolsson-json-datasource",
