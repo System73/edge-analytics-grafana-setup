@@ -1360,7 +1360,7 @@
         "type": "marcusolsson-json-datasource",
         "uid": "${DS_SYSTEM73_ANALYTICS}"
       },
-      "description": "The time it takes to present the first frame to the viewer after the service finishes loading.\n\nBars are distributed by four quantiles:\n\n* **Q1 (25th percentile)**: This is the value below which 25% of the data falls.\n* **Median (50th percentile)**: This is the middle value of the dataset, where 50% of the data\n  falls below and 50% above.\n* **Q3 (75th percentile)**: This is the value below which 75% of the data falls.\n* **97.5th percentile**: This indicates the value below which 97.5% of the data falls.\n\n<a href=\"https://docs.system73.com/services/edge-analytics/dashboard/#join-time_1\" target=\"_blank\">Details</a>",
+      "description": "A perceived time from the point of the viewer, how much time it takes to present the first frame after the `play` event.\n\nBars are distributed by four quantiles:\n\n* **Q1 (25th percentile)**: This is the value below which 25% of the data falls.\n* **Median (50th percentile)**: This is the middle value of the dataset, where 50% of the data\n  falls below and 50% above.\n* **Q3 (75th percentile)**: This is the value below which 75% of the data falls.\n* **97.5th percentile**: This indicates the value below which 97.5% of the data falls.\n\n<a href=\"https://docs.system73.com/services/edge-analytics/dashboard/#join-time_1\" target=\"_blank\">Details</a>",
       "fieldConfig": {
         "defaults": {
           "color": {
@@ -1689,6 +1689,7 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
@@ -3403,6 +3404,7 @@
             }
           },
           "mappings": [],
+          "min": 0,
           "noValue": "0",
           "thresholds": {
             "mode": "absolute",
