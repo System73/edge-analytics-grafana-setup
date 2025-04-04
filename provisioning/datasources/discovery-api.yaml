@@ -1,0 +1,18 @@
+apiVersion: 1
+
+datasources:
+  - name: System73 Discovery
+    value: DS_SYSTEM73_DISCOVERY
+    type: yesoreyeram-infinity-datasource
+    orgId: 1
+    access: proxy
+    url: ""
+    basicAuth: false
+    user: ""
+    jsonData:
+      allowedHosts:
+        - "https://api.edgeplatform.s73cloud.com/graphql"
+    isDefault: false
+    version: 1
+    readOnly: false
+    editable: true
