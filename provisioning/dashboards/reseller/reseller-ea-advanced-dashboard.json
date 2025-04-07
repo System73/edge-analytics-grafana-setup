@@ -9,8 +9,8 @@
       "pluginName": "JSON API"
     },
     {
-      "name": "DS_SYSTEM73_DISCOVERY",
-      "label": "System73 Discovery",
+      "name": "DS_SYSTEM73_DISCOVERY_API",
+      "label": "System73 Discovery API",
       "description": "",
       "type": "datasource",
       "pluginId": "yesoreyeram-infinity-datasource",
@@ -4874,9 +4874,9 @@
         "current": {},
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_SYSTEM73_DISCOVERY}"
+          "uid": "${DS_SYSTEM73_DISCOVERY_API}"
         },
-        "definition": "discovery-api-infinity- (infinity) graphql",
+        "definition": "System73 Discovery API- (infinity) graphql",
         "description": "Customer's region",
         "hide": 0,
         "includeAll": false,
@@ -5228,7 +5228,7 @@
         "current": {},
         "datasource": {
           "type": "yesoreyeram-infinity-datasource",
-          "uid": "${DS_SYSTEM73_DISCOVERY}"
+          "uid": "${DS_SYSTEM73_DISCOVERY_API}"
         },
         "definition": "",
         "description": "",
@@ -5299,7 +5299,7 @@
         "hide": 2,
         "includeAll": false,
         "multi": false,
-        "name": "DS_SYSTEM73_DISCOVERY",
+        "name": "DS_SYSTEM73_DISCOVERY_API",
         "options": [],
         "query": "yesoreyeram-infinity-datasource",
         "refresh": 1,
