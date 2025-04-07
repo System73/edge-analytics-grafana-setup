@@ -7,6 +7,22 @@
       "type": "datasource",
       "pluginId": "marcusolsson-json-datasource",
       "pluginName": "JSON API"
+    },
+    {
+      "name": "DS_ENVIRONMENT_VARIABLES",
+      "label": "Environment Variables",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "volkovlabs-env-datasource",
+      "pluginName": "Environment Variables"
+    },
+    {
+      "name": "DS_SYSTEM73_DISCOVERY_API",
+      "label": "System73 Discovery API",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "yesoreyeram-infinity-datasource",
+      "pluginName": "Infinity"
     }
   ],
   "__elements": {},
@@ -27,7 +43,7 @@
       "type": "grafana",
       "id": "grafana",
       "name": "Grafana",
-      "version": "9.4.7"
+      "version": "11.0.0"
     },
     {
       "type": "panel",
@@ -51,13 +67,13 @@
       "type": "panel",
       "id": "system73-3dglobe-panel",
       "name": "3dglobe",
-      "version": "1.2.6"
+      "version": "2.0.0"
     },
     {
       "type": "panel",
       "id": "system73-3dtopology-panel",
       "name": "3d Topology",
-      "version": "1.4.2"
+      "version": "1.7.0"
     },
     {
       "type": "panel",
@@ -76,6 +92,18 @@
       "id": "timeseries",
       "name": "Time series",
       "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "volkovlabs-env-datasource",
+      "name": "Environment Variables",
+      "version": "4.1.0"
+    },
+    {
+      "type": "datasource",
+      "id": "yesoreyeram-infinity-datasource",
+      "name": "Infinity",
+      "version": "3.0.0"
     }
   ],
   "annotations": {
@@ -156,9 +184,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT MAX(SumDeviceCount) AS \\\"MaxDeviceCount\\\" FROM (SELECT \\\"timestamp\\\", SUM(DeviceCount) AS \\\"SumDeviceCount\\\" FROM (SELECT TIME_FLOOR(__time, 'P${iso_period}') AS \\\"timestamp\\\", COUNT(DISTINCT SessionId) AS \\\"DeviceCount\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE VideoResolutionHeight > 0 AND Bitrate IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, VideoResolutionHeight) GROUP BY 1)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -233,9 +263,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT SUM(CdnDownlinkThroughput) * 125 AS \\\"TotalCdnDownlinkThroughput\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -310,9 +342,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT SUM(P2pDownlinkThroughput) * 125 AS \\\"TotalP2pDownlinkThroughput\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -387,9 +421,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT (CAST(SUM(P2pDownlinkThroughput) AS FLOAT) / CASE WHEN SUM(TotalDownlinkThroughput) = 0 THEN 1 ELSE SUM(TotalDownlinkThroughput) END) AS \\\"P2pOffload\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -475,9 +511,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT APPROX_QUANTILE_DS(MaxStartingTime, 0.5) AS \\\"MedianStartingTime\\\" FROM (SELECT MAX(StartingTime) AS \\\"MaxStartingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND StartingTime IS NOT NULL AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY SessionId)\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -552,9 +590,11 @@
           "fields": "",
           "values": false
         },
-        "textMode": "auto"
+        "showPercentChange": false,
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT SUM(ViewingTime) AS \\\"TotalViewingTime\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE PlayerState = 'playing' AND CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}'\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -958,6 +998,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -971,6 +1012,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1021,6 +1063,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "none"
         }
@@ -1094,6 +1137,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1107,6 +1151,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1157,6 +1202,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "none"
         }
@@ -1230,6 +1276,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1243,6 +1290,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1294,6 +1342,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "none"
         }
@@ -1367,6 +1416,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1380,6 +1430,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1457,6 +1508,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "none"
         }
@@ -1523,6 +1575,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1536,6 +1589,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1584,6 +1638,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "none"
         }
@@ -1623,7 +1678,6 @@
         }
       ],
       "title": "Optimal Viewport Percent",
-      "transformations": [],
       "transparent": true,
       "type": "timeseries"
     },
@@ -1639,6 +1693,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1653,6 +1708,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -1790,6 +1846,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "desc"
         }
@@ -1861,7 +1918,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "transparent": true,
       "type": "text"
     },
@@ -1904,6 +1961,7 @@
             "mode": "fixed"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -1917,6 +1975,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -2029,6 +2088,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "asc"
         }
@@ -2089,6 +2149,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2102,6 +2163,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -2308,7 +2370,9 @@
         },
         "showValue": "never",
         "tooltip": {
-          "show": true,
+          "maxHeight": 600,
+          "mode": "single",
+          "showColorScale": false,
           "yHistogram": true
         },
         "yAxis": {
@@ -2318,7 +2382,7 @@
           "unit": "Kbits"
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "reverseYBuckets": false,
       "targets": [
         {
@@ -2354,7 +2418,6 @@
         "show": true,
         "showHistogram": false
       },
-      "transformations": [],
       "transparent": true,
       "type": "heatmap",
       "xAxis": {
@@ -2379,6 +2442,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2392,6 +2456,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -2472,6 +2537,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "none"
         }
@@ -2556,6 +2622,7 @@
             "mode": "palette-classic"
           },
           "custom": {
+            "axisBorderShow": false,
             "axisCenteredZero": false,
             "axisColorMode": "text",
             "axisLabel": "",
@@ -2569,6 +2636,7 @@
               "tooltip": false,
               "viz": false
             },
+            "insertNulls": false,
             "lineInterpolation": "linear",
             "lineWidth": 1,
             "pointSize": 5,
@@ -2649,6 +2717,7 @@
           "showLegend": true
         },
         "tooltip": {
+          "maxHeight": 600,
           "mode": "multi",
           "sort": "none"
         }
@@ -2742,7 +2811,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "transparent": true,
       "type": "text"
     },
@@ -2874,7 +2943,7 @@
           "zoom": 1.7
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -3007,7 +3076,7 @@
           "zoom": 1.7
         }
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "targets": [
         {
           "body": "{\n  \"query\" : \"SELECT Latitude, Longitude, COUNT(DISTINCT SessionId) AS \\\"Count\\\" FROM \\\"sdk-${region}-${data_layer}\\\" WHERE CustomerId = '${customer_id}' AND (CAST('${channel_id}' AS int) = -1 OR ChannelId IN ('${channel_id}')) AND (CAST('${stream_uri}' AS int) = -1 OR MaskedStreamUri IN ('${stream_uri}')) AND (CAST('${bitrate}' AS int) = -1 OR Bitrate IN ('${bitrate}')) AND (CAST('${stream_state}' AS int) = -1 OR StreamState IN ('${stream_state}')) AND __time >= '${__from:date:iso}' AND __time <= '${__to:date:iso}' GROUP BY 1, 2\",\n  \"context\":  {\n    \"skipEmptyBuckets\": false,\n    \"useApproximateCountDistinct\": true,\n    \"useCache\": true,\n    \"useResultLevelCache\": true\n  }\n}",
@@ -3077,7 +3146,7 @@
         "content": "",
         "mode": "markdown"
       },
-      "pluginVersion": "9.4.7",
+      "pluginVersion": "11.0.0",
       "transparent": true,
       "type": "text"
     },
@@ -3245,85 +3314,126 @@
   ],
   "refresh": "",
   "revision": 1,
-  "schemaVersion": 38,
-  "style": "dark",
+  "schemaVersion": 39,
   "tags": [
-    "ei"
+    "ea"
   ],
   "templating": {
     "list": [
       {
-        "current": {
-          "selected": false,
-          "text": "emea",
-          "value": "emea"
+        "current": {},
+        "datasource": {
+          "type": "volkovlabs-env-datasource",
+          "uid": "${DS_ENVIRONMENT_VARIABLES}"
         },
+        "definition": "ANALYTICS_API_TOKEN",
+        "description": "",
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "auth",
+        "options": [],
+        "query": "ANALYTICS_API_TOKEN",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "${DS_SYSTEM73_DISCOVERY_API}"
+        },
+        "definition": "System73 Discovery API- (infinity) json",
         "description": "Customer's region",
-        "hide": 0,
+        "hide": 2,
         "includeAll": false,
         "multi": false,
         "name": "region",
-        "options": [
-          {
-            "selected": false,
-            "text": "americas",
-            "value": "americas"
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.userInfo",
+            "source": "url",
+            "type": "json",
+            "url": "https://api.edgeplatform.s73cloud.com/graphql",
+            "url_options": {
+              "body_content_type": "text/plain",
+              "body_graphql_query": "query region {\n\tuserInfo(accessToken: \"${auth}\") {\n\t\tregion\n\t}\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "headers": [
+                {
+                  "key": "Authorization",
+                  "value": "${auth}"
+                }
+              ],
+              "method": "POST"
+            }
           },
-          {
-            "selected": true,
-            "text": "emea",
-            "value": "emea"
-          },
-          {
-            "selected": false,
-            "text": "apac",
-            "value": "apac"
-          }
-        ],
-        "query": "americas,emea,apac",
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
         "skipUrlSync": false,
-        "type": "custom"
+        "sort": 0,
+        "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
+        "current": {},
+        "datasource": {
+          "type": "yesoreyeram-infinity-datasource",
+          "uid": "${DS_SYSTEM73_DISCOVERY_API}"
         },
+        "definition": "System73 Discovery API- (infinity) graphql",
         "description": "Customer Id",
-        "hide": 0,
-        "label": "Customer Id",
-        "name": "customer_id",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
-        "skipUrlSync": false,
-        "type": "textbox"
-      },
-      {
-        "current": {
-          "selected": false,
-          "text": "",
-          "value": ""
-        },
-        "description": "",
         "hide": 2,
-        "name": "auth",
-        "options": [
-          {
-            "selected": false,
-            "text": "",
-            "value": ""
-          }
-        ],
-        "query": "",
+        "includeAll": false,
+        "label": "Customer Id",
+        "multi": false,
+        "name": "customer_id",
+        "options": [],
+        "query": {
+          "infinityQuery": {
+            "columns": [],
+            "filters": [],
+            "format": "table",
+            "parser": "backend",
+            "refId": "variable",
+            "root_selector": "data.userInfo",
+            "source": "url",
+            "type": "graphql",
+            "url": "https://api.edgeplatform.s73cloud.com/graphql",
+            "url_options": {
+              "body_content_type": "text/plain",
+              "body_graphql_query": "query id {\n\tuserInfo(accessToken: \"${auth}\") {\n\t\teiID\n\t}\n}\n",
+              "body_type": "graphql",
+              "data": "",
+              "headers": [
+                {
+                  "key": "Authorization",
+                  "value": "${auth}"
+                }
+              ],
+              "method": "POST"
+            }
+          },
+          "query": "",
+          "queryType": "infinity"
+        },
+        "refresh": 1,
+        "regex": "",
         "skipUrlSync": false,
-        "type": "textbox"
+        "sort": 0,
+        "type": "query"
       },
       {
         "allValue": "-1",
@@ -3579,6 +3689,40 @@
         "regex": "",
         "skipUrlSync": false,
         "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "System73 Discovery",
+          "value": ""
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "DS_SYSTEM73_DISCOVERY_API",
+        "options": [],
+        "query": "yesoreyeram-infinity-datasource",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
+      },
+      {
+        "current": {
+          "selected": false,
+          "text": "Environment Variables",
+          "value": ""
+        },
+        "hide": 2,
+        "includeAll": false,
+        "multi": false,
+        "name": "DS_ENVIRONMENT_VARIABLES",
+        "options": [],
+        "query": "volkovlabs-env-datasource",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "type": "datasource"
       }
     ]
   },
@@ -3586,6 +3730,7 @@
     "from": "now-5m",
     "to": "now"
   },
+  "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {
     "refresh_intervals": [
       "10s",
@@ -3600,8 +3745,8 @@
     ]
   },
   "timezone": "",
-  "title": "Edge Intelligence - Basic",
-  "uid": "ei-basic",
+  "title": "Edge Analytics Basic",
+  "uid": "ea-basic",
   "version": 1,
   "weekStart": ""
 }
