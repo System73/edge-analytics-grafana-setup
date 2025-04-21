@@ -19,4 +19,4 @@ and efficiency:
 
 [conv-commits]: https://www.conventionalcommits.org/en/v1.0.0/
 [how-to-rebase]: https://www.atlassian.com/git/tutorials/merging-vs-rebasing
-[s73-docs]: https://docs.system73.com/services/edge-analytics/self-hosted/automatic-installation/
+[s73-docs]: https://docs.system73.com/services/edge-analytics/self-hosted/installation/
