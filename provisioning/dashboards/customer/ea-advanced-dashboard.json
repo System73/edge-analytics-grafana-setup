@@ -5009,7 +5009,7 @@
           "uid": "${DS_SYSTEM73_ANALYTICS}"
         },
         "definition": "$.[*].label",
-        "description": "Select the data granularity",
+        "description": "Select the data granularity. \"Auto\" stands for the finest available for the time range.",
         "hide": 0,
         "includeAll": false,
         "label": "Time granularity",
