@@ -718,7 +718,7 @@
                     "value": [
                       {
                         "title": "",
-                        "url": "/d/ei-basic/edge-intelligence-basic?${region:queryparam}&${customer_id:queryparam}&${auth:queryparam}&orgId=1&${__url_time_range}&var-channel_id=${__data.fields[\"Channel Id\"]}&${stream_uri:queryparam}&${bitrate:queryparam}&${stream_state:queryparam}&${iso_period:queryparam}&${data_layer:queryparam}&${accuracy:queryparam}"
+                        "url": "/d/ea-basic/edge-analytics-basic?${region:queryparam}&${customer_id:queryparam}&${auth:queryparam}&orgId=1&${__url_time_range}&var-channel_id=${__data.fields[\"Channel Id\"]}&${stream_uri:queryparam}&${bitrate:queryparam}&${stream_state:queryparam}&${iso_period:queryparam}&${data_layer:queryparam}"
                       }
                     ]
                   }
