@@ -67,13 +67,13 @@
       "type": "panel",
       "id": "system73-3dglobe-panel",
       "name": "3dglobe",
-      "version": "1.2.6"
+      "version": "2.0.0"
     },
     {
       "type": "panel",
       "id": "system73-3dtopology-panel",
       "name": "3d Topology",
-      "version": "1.4.2"
+      "version": "1.7.0"
     },
     {
       "type": "panel",
@@ -5141,6 +5141,10 @@
             [
               "to_date",
               "${__to:date:seconds}"
+            ],
+            [
+              "customer_ids",
+              "${customer_ids:singlequote}"
             ]
           ],
           "queryParams": "",
