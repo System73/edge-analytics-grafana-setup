@@ -5189,6 +5189,10 @@
             [
               "granularity",
               "${iso_period}"
+            ],
+            [
+              "customer_ids",
+              "${customer_ids:singlequote}"
             ]
           ],
           "queryParams": "",
